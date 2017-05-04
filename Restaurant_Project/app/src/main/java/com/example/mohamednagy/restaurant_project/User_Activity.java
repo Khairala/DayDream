@@ -1,5 +1,7 @@
 package com.example.mohamednagy.restaurant_project;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
