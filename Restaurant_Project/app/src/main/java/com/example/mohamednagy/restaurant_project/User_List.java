@@ -34,6 +34,7 @@ public class User_List extends Fragment implements AdapterView.OnItemClickListen
         listContent.add("Food");
         listContent.add("My Orders");
         listContent.add("Feedback");
+        listContent.add("About");
         listContent.add("Sign Out");
         ArrayAdapter<String> adapterList = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,listContent);
         ListView userList =(ListView) view.findViewById(R.id.userList);

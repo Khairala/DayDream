@@ -17,7 +17,7 @@
         android:layout_marginStart="8dp"
         android:divider="#FFCC00"
         android:dividerHeight="4px"
-        android:listSelector="#05fae8"
+        android:listSelector="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"

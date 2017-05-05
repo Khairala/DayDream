@@ -43,10 +43,10 @@ public class Database {
         sql.execSQL("insert into users(userName,Email,Password,Address,Phone) values ('kiko' , 'medoo1192@gmail.com' , 'myPassword' , 'cairo' , '01144098850')");
     }
 
-    public ArrayList<String> getUser ()
+    public ArrayList<String> getUser (int id)
     {
         ArrayList<String> arr = new ArrayList<String>();
-        Cursor cur = sql.rawQuery("select userName,Email,Password,Address,Phone from users where ID = 1",null);
+        Cursor cur = sql.rawQuery("select userName,Email,Password,Address,Phone from users where ID = "+ id ,null);
         if (cur.getCount() > 0)
         {
             while (cur.moveToNext())
@@ -60,5 +60,13 @@ public class Database {
         }
         cur.close();
         return arr;
+    }
+    public void updateUser (String userName ,String Email ,String Password ,String Address ,String Phone)
+    {
+        String query = "UPDATE users SET Email = "+"'"+Email+"',"+" Password = "+"'"+Password+"'," +
+                " Address = "+"'"+Address+"',"+ "Phone = "+
+                "'"+Phone+"' WHERE userName = "+"'" +userName+"'";
+        sql.execSQL(query);
+        Log.e("update" , "updaaaaaaaaaaaaaaaaaaaaaaaaaaaaated");
     }
 }
