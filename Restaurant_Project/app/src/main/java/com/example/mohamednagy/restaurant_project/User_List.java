@@ -58,7 +58,13 @@ public class User_List extends Fragment implements AdapterView.OnItemClickListen
                 Profile prof = new Profile();
                 ft.replace(R.id.fragmentContent,prof);
                 ft.commit();
+            }else if (listContent.get(i) == "About")
+            {
+                About about = new About();
+                ft.replace(R.id.fragmentContent,about);
+                ft.commit();
             }
+
 
     }
 }
