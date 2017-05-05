@@ -8,14 +8,16 @@
     <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/userList"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="512dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:divider="#FFCC00"
+        android:dividerHeight="4px"
+        android:listSelector="#05fae8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"

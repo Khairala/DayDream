@@ -45,21 +45,19 @@ public class User_List extends Fragment implements AdapterView.OnItemClickListen
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        FragmentManager fm = getActivity().getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
             if(listContent.get(i) == "Food")
             {
                 Food food = new Food();
-                FragmentManager fm = getActivity().getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.fragmentContent,food);
                 ft.commit();
-            }
-            else  if(listContent.get(i) == "Profile")
+            }else if (listContent.get(i) == "Profile")
             {
-                User_Content user_content = new User_Content();
-                FragmentManager fm = getActivity().getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.fragmentContent,user_content);
+                Profile prof = new Profile();
+                ft.replace(R.id.fragmentContent,prof);
                 ft.commit();
             }
+
     }
 }
