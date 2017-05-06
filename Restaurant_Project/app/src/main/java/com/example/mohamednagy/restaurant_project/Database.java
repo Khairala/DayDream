@@ -94,28 +94,27 @@ public class Database {
     {
         try {
             sql.execSQL("create table if not exists food (ID INTEGER PRIMARY KEY AUTOINCREMENT,food_name text" +
-                    ", image text)");
+                    ", price text,image text)");
         }catch (Exception ex)
         {
             ex.printStackTrace();
         }
     }
-    public void addFood(String name,int img)
+    public void addFood(String name,String price,int img)
     {
-        sql.execSQL("insert into food(food_name,image) values ('"+name+"' , '"+img+"')");
+        sql.execSQL("insert into food(food_name,price,image) values ('"+name+"' , '"+price+"', '"+img+"')");
         Log.e("food added","added");
     }
 
     public ArrayList<FoodItem> getAllfood()
     {
         ArrayList<FoodItem> arr = new ArrayList<FoodItem>();
-        Cursor cur = sql.rawQuery("select food_name,image from food ",null);
+        Cursor cur = sql.rawQuery("select food_name,price,image from food ",null);
         if (cur.getCount() > 0)
         {
             while (cur.moveToNext())
             {
-                FoodItem f = new FoodItem(cur.getString(0),cur.getInt(1));
-                Log.e(f.title,f.imageUrl+"");
+                FoodItem f = new FoodItem(cur.getString(0),cur.getString(1),cur.getInt(2));
                 arr.add(f);
             }
             cur.close();

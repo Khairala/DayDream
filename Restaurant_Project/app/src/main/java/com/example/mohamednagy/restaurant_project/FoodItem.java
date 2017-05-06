@@ -8,11 +8,13 @@ import android.util.Log;
 
 public class FoodItem {
     public String title;
+    public String price;
     public int imageUrl;
 
-    public FoodItem(String t,int i)
+    public FoodItem(String t,String price,int i)
     {
         this.title = t;
         this.imageUrl = i;
+        this.price = price;
     }
 }

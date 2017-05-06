@@ -37,6 +37,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.title.setText(this.foodItems.get(position).title);
+        holder.price.setText(this.foodItems.get(position).price);
         holder.image.setImageResource(this.foodItems.get(position).imageUrl);
         holder.request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,12 +54,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
+        public TextView price;
         public ImageView image;
         public Button request;
 
         public ViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.foodtitle);
+            price = (TextView) itemView.findViewById(R.id.foodprice);
             image = (ImageView) itemView.findViewById(R.id.foodImage);
             request = (Button) itemView.findViewById(R.id.request);
         }

@@ -30,10 +30,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //db.dropTables();
         //db.createTables();
         //db.addUser();
-        //db.dropTablesfood();
+       // db.dropTablesfood();
         db.createfoodtable();
-        // int id = getResources().getIdentifier("f3","drawable",getPackageName());
-        //db.addFood("Rice",id);
+       //  int id = getResources().getIdentifier("f2","drawable",getPackageName());
+        //db.addFood("Burger","10$",id);
+
         login.setOnClickListener(this);
     }
 
