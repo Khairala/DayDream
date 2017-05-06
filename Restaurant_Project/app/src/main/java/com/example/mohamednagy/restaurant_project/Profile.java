@@ -38,7 +38,7 @@ public class Profile extends Fragment {
         sql = getActivity().openOrCreateDatabase("myDB" ,0,null);
         final Database db = new Database(sql);
         //db.dropTables();
-        db.createTables();
+       // db.createTables();
        // db.addUser();
         ArrayList<String> arr = db.getUser(1);
         name.setText(arr.get(0));

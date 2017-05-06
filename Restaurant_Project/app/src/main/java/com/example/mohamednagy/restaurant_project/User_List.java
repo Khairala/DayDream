@@ -10,55 +10,56 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
-public class User_List extends Fragment implements AdapterView.OnItemClickListener{
+public class User_List extends Fragment implements AdapterView.OnItemSelectedListener{
 
 
     public User_List() {
         // Required empty public constructor
     }
-    ArrayList<String> listContent;
+    ArrayList<String> spinnerContent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View  view =  inflater.inflate(R.layout.fragment_user__list, container, false);
-        listContent = new ArrayList<>();
-        listContent.add("Profile");
-        listContent.add("Food");
-        listContent.add("My Orders");
-        listContent.add("Feedback");
-        listContent.add("About");
-        listContent.add("Sign Out");
-        ArrayAdapter<String> adapterList = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,listContent);
-        ListView userList =(ListView) view.findViewById(R.id.userList);
-        userList.setAdapter(adapterList);
-        userList.setOnItemClickListener(this);
+        spinnerContent = new ArrayList<>();
+        spinnerContent.add("Profile");
+        spinnerContent.add("Food");
+        spinnerContent.add("My Orders");
+        spinnerContent.add("Feedback");
+        spinnerContent.add("About");
+        spinnerContent.add("Sign Out");
+        ArrayAdapter<String> adapterList = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item, spinnerContent);
+        Spinner spinner =(Spinner) view.findViewById(R.id.spinner);
+        spinner.setAdapter(adapterList);
+        spinner.setOnItemSelectedListener(this);
         return view;
     }
 
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        TextView txt = (TextView) view;
         FragmentManager fm = getActivity().getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-            if(listContent.get(i) == "Food")
+            if(txt.getText().toString() == "Food")
             {
                 Food food = new Food();
                 ft.replace(R.id.fragmentContent,food);
                 ft.commit();
-            }else if (listContent.get(i) == "Profile")
+            }else if (txt.getText().toString() == "Profile")
             {
                 Profile prof = new Profile();
                 ft.replace(R.id.fragmentContent,prof);
                 ft.commit();
-            }else if (listContent.get(i) == "About")
+            }else if (txt.getText().toString() == "About")
             {
                 About about = new About();
                 ft.replace(R.id.fragmentContent,about);
@@ -67,4 +68,9 @@ public class User_List extends Fragment implements AdapterView.OnItemClickListen
 
 
     }
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 }

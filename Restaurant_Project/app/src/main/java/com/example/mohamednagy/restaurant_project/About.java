@@ -29,6 +29,7 @@ public class About extends Fragment {
             }
         });
 
+
         return view;
     }
 
