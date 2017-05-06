@@ -20,6 +20,7 @@ public class Database {
         sql.execSQL(dropQuery);
         Log.e("table" , "drop allllllllll");
     }
+
     public void createTables()
     {
         try {
@@ -35,9 +36,11 @@ public class Database {
         }
     }
 
+
     public void addUser ()
     {
-        sql.execSQL("insert into users(userName,Email,Password,Address,Phone) values ('kiko' , 'medoo1192@gmail.com' , 'myPassword' , 'cairo' , '01144098850')");
+        sql.execSQL("insert into users(userName,Email,Password,Address,Phone) values ('kiko' , 'medoo1192@gmail.com' , '123' , 'cairo' , '01144098850')");
+        Log.e("user added","added");
     }
 
     public ArrayList<String> getUser (int id)
@@ -85,5 +88,44 @@ public class Database {
             cur.close();
             return arr;
         }else{return null;}
+    }
+
+    public void createfoodtable()
+    {
+        try {
+            sql.execSQL("create table if not exists food (ID INTEGER PRIMARY KEY AUTOINCREMENT,food_name text" +
+                    ", image text)");
+        }catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    public void addFood(String name,int img)
+    {
+        sql.execSQL("insert into food(food_name,image) values ('"+name+"' , '"+img+"')");
+        Log.e("food added","added");
+    }
+
+    public ArrayList<FoodItem> getAllfood()
+    {
+        ArrayList<FoodItem> arr = new ArrayList<FoodItem>();
+        Cursor cur = sql.rawQuery("select food_name,image from food ",null);
+        if (cur.getCount() > 0)
+        {
+            while (cur.moveToNext())
+            {
+                FoodItem f = new FoodItem(cur.getString(0),cur.getInt(1));
+                Log.e(f.title,f.imageUrl+"");
+                arr.add(f);
+            }
+            cur.close();
+            return arr;
+        }else{return null;}
+    }
+    public void dropTablesfood()
+    {
+        String dropQuery = "DROP TABLE IF EXISTS food";
+        sql.execSQL(dropQuery);
+        Log.e("table" , "drop allllllllll");
     }
 }
