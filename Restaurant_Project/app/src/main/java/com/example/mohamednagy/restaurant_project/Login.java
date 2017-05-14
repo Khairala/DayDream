@@ -1,14 +1,29 @@
 package com.example.mohamednagy.restaurant_project;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -53,8 +68,53 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             Profile fragobj = new Profile();
             fragobj.setArguments(bundle);
             Intent intent = new Intent(getBaseContext() , User_Activity.class);
+
+
+            // Write a message to the database
+          /*  FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("message");
+
+            myRef.setValue(userData.get(0));
+
+            // Read from the database
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    String value = dataSnapshot.getValue(String.class);
+                    Log.d("Nagy", "Value is: " + value);
+                    sendNotification("A new Item Added :)");
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w("Nagy", "Failed to read value.", error.toException());
+                }
+            });*/
             startActivity(intent);
         }
+    }
+    public void sendNotification(String Body){
+        Intent intent = new Intent(this,User_Activity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0 , intent,PendingIntent.FLAG_ONE_SHOT);
+
+        // sound
+        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder  builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Restaurant App")
+                .setContentText(Body)
+                .setAutoCancel(true)
+                .setSound(notificationSound)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0 , builder.build());
     }
 }
 
