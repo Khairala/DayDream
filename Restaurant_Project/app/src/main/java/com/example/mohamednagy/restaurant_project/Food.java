@@ -32,7 +32,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Food extends Fragment implements ValueEventListener{
+public class Food extends Fragment {
 
 
     public Food() {
@@ -58,49 +58,10 @@ public class Food extends Fragment implements ValueEventListener{
         FoodAdapter foodAdapter = new FoodAdapter(this.foodItems);
         recyclerView.setAdapter(foodAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.addValueEventListener(this);
+
 
         return view;
     }
 
-    public void sendNotification(String Body){
-        Intent intent = new Intent(getActivity(), Food.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(),0 , intent,PendingIntent.FLAG_ONE_SHOT);
-        // sound
-        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        NotificationCompat.Builder  builder = new NotificationCompat.Builder(getActivity())
-                .setSmallIcon(R.drawable.about)
-                .setContentTitle("DayDream")
-                .setContentText(Body)
-                .setAutoCancel(true)
-                .setSound(notificationSound)
-                .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0 , builder.build());
-    }
-
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-        // This method is called once with the initial value and again
-        // whenever data at this location is updated.
-        String value = dataSnapshot.getValue(String.class);
-
-        if(value != null ) {
-            sendNotification("A new Item Added \uD83D\uDE0A" + value);
-        }
-    }
-
-    @Override
-    public void onCancelled(DatabaseError databaseError) {
-        // Failed to read value
-        Log.w("Fail", "Failed to read value.", databaseError.toException());
-
-    }
 
 }

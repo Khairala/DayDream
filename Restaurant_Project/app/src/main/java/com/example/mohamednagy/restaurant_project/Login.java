@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity implements View.OnClickListener ,ValueEventListener{
     SQLiteDatabase sql;
     EditText userName;
     EditText passWord;
@@ -43,15 +43,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         final Button login = (Button) findViewById(R.id.login);
         sql = openOrCreateDatabase("myDB" ,0,null);
         db = new Database(sql);
-      //  db.dropTables();
+        //  db.dropTables();
         //db.createTables();
         //db.addUser();
-       // db.dropTablesfood();
+        // db.dropTablesfood();
         db.createfoodtable();
-       //  int id = getResources().getIdentifier("f2","drawable",getPackageName());
+        //  int id = getResources().getIdentifier("f2","drawable",getPackageName());
         //db.addFood("Burger","10$",id);
         // Write a message to the database
-
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        myRef.addValueEventListener(this);
         login.setOnClickListener(this);
     }
 
@@ -61,18 +63,48 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if(userData != null)
         {
             Intent intent = new Intent(getBaseContext() , User_Activity.class);
-
-            Log.e("mmmmmmmmmmmm","kkkkkkkkk");
             intent.putExtra("Id", userData);
             startActivity(intent);
         }
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    public void sendNotification(String Body){
+        Intent intent = new Intent(this, Food.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0 , intent,PendingIntent.FLAG_ONE_SHOT);
+        // sound
+        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder  builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.about)
+                .setContentTitle("DayDream")
+                .setContentText(Body)
+                .setAutoCancel(true)
+                .setSound(notificationSound)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0 , builder.build());
     }
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        // This method is called once with the initial value and again
+        // whenever data at this location is updated.
+        String value = dataSnapshot.getValue(String.class);
+
+        if(value != null ) {
+            sendNotification("A new Item Added \uD83D\uDE0A" + value);
+        }
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+        // Failed to read value
+        Log.w("Fail", "Failed to read value.", databaseError.toException());
+
+    }
+
 }
 

@@ -20,6 +20,10 @@ public class User_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_layout);
 
+        Bundle bundle = getIntent().getExtras();
+        Profile profile = new Profile();
+        profile.setArguments(bundle);
+
         Toolbar userToolbar = (Toolbar) findViewById(R.id.usertoolbar);
         setSupportActionBar(userToolbar);
     }
@@ -38,23 +42,19 @@ public class User_Activity extends AppCompatActivity {
         if(item.getTitle().equals("Food"))
         {
             Food food = new Food();
-            Bundle bundle = getIntent().getExtras();
-            food.setArguments(bundle);
             ft.replace(R.id.fragmentContent,food);
             ft.commit();
         }else if (item.getTitle().equals("Profile"))
         {
             Profile prof = new Profile();
-            Bundle bundle = getIntent().getExtras();
+            Bundle bundle = this.getIntent().getExtras();
             prof.setArguments(bundle);
-
             ft.replace(R.id.fragmentContent,prof);
             ft.commit();
         }else if (item.getTitle().equals("About Us"))
         {
             About about = new About();
-            Bundle bundle = getIntent().getExtras();
-            about.setArguments(bundle);
+
             ft.replace(R.id.fragmentContent,about);
             ft.commit();
         }
