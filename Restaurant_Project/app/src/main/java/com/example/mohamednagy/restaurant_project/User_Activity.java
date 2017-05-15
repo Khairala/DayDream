@@ -38,9 +38,6 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
         Profile profile = new Profile();
         profile.setArguments(bundle);
 
-        TextView holder = (TextView) findViewById(R.id.holder);
-        holder.setText(bundle.getString("Id"));
-        Log.e("LLLLLLLLLLLLLLLLL",bundle.getString("Id"));
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("message");
