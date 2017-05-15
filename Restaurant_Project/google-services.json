@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "497695249564",
+    "firebase_url": "https://restaurantproject-fd8a4.firebaseio.com",
+    "project_id": "restaurantproject-fd8a4",
+    "storage_bucket": "restaurantproject-fd8a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497695249564:android:286defd657042991",
+        "android_client_info": {
+          "package_name": "com.example.mohamednagy.restaurant_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497695249564-uga1hjs6mqsv7hicdrchmgkmk77hqi1t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mohamednagy.restaurant_project",
+            "certificate_hash": "5c95cb45f8cd972715ec8cef1eca383578552c64"
+          }
+        },
+        {
+          "client_id": "497695249564-ih17tlsd6mhlv2j34ofs90h6uq0f1f5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mohamednagy.restaurant_project",
+            "certificate_hash": "77c9fa676c00a8555c6128138cf2f1b4a60cbea1"
+          }
+        },
+        {
+          "client_id": "497695249564-dkk9f34mj4i2v0m507228ub89n1cdg3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9tcyEaHchWV2-l6ETcFbeIaVE8NqGF1A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497695249564-dkk9f34mj4i2v0m507228ub89n1cdg3t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
