@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/profileInlist"
+        android:title="Profile"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/foodInlist"
+        android:title="Food"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/orderInlist"
+        android:title="Orders"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/AboutInlist"
+        android:title="About Us"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/SignInlist"
+        android:title="Sign Out"
+        app:showAsAction="never"
+        />
+</menu>
