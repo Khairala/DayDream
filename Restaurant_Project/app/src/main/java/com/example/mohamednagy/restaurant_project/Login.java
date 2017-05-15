@@ -24,13 +24,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
+
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
-public class Login extends AppCompatActivity implements View.OnClickListener,ValueEventListener {
+public class Login extends AppCompatActivity implements View.OnClickListener {
     SQLiteDatabase sql;
     EditText userName;
     EditText passWord;
@@ -44,7 +43,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Val
         final Button login = (Button) findViewById(R.id.login);
         sql = openOrCreateDatabase("myDB" ,0,null);
         db = new Database(sql);
-        //db.dropTables();
+      //  db.dropTables();
         //db.createTables();
         //db.addUser();
        // db.dropTablesfood();
@@ -52,11 +51,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Val
        //  int id = getResources().getIdentifier("f2","drawable",getPackageName());
         //db.addFood("Burger","10$",id);
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
 
-        // Read from the database
-        myRef.addValueEventListener(this);
         login.setOnClickListener(this);
     }
 
@@ -73,45 +68,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Val
         }
     }
 
-
-    public void sendNotification(String Body){
-        Intent intent = new Intent(this,User_Activity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0 , intent,PendingIntent.FLAG_ONE_SHOT);
-
-        // sound
-        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        NotificationCompat.Builder  builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.about)
-                .setContentTitle("DayDream")
-                .setContentText(Body)
-                .setAutoCancel(true)
-                .setSound(notificationSound)
-                .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0 , builder.build());
-    }
-
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-        // This method is called once with the initial value and again
-        // whenever data at this location is updated.
-        String value = dataSnapshot.getValue(String.class);
-        Log.e("Nagy", "Value is: " + value);
-        if(isNetworkAvailable()) {
-            sendNotification("A new Item Added :)");
-        }
-    }
-
-    @Override
-    public void onCancelled(DatabaseError databaseError) {
-        // Failed to read value
-        Log.w("Nagy", "Failed to read value.", databaseError.toException());
-
-    }
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

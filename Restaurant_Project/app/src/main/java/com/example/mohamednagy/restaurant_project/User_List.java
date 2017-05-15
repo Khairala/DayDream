@@ -52,6 +52,8 @@ public class User_List extends Fragment implements AdapterView.OnItemSelectedLis
             if(txt.getText().toString() == "Food")
             {
                 Food food = new Food();
+                Bundle bundle = getActivity().getIntent().getExtras();
+                food.setArguments(bundle);
                 ft.replace(R.id.fragmentContent,food);
                 ft.commit();
             }else if (txt.getText().toString() == "Profile")
@@ -65,11 +67,11 @@ public class User_List extends Fragment implements AdapterView.OnItemSelectedLis
             }else if (txt.getText().toString() == "About")
             {
                 About about = new About();
+                Bundle bundle = getActivity().getIntent().getExtras();
+                about.setArguments(bundle);
                 ft.replace(R.id.fragmentContent,about);
                 ft.commit();
             }
-
-
     }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

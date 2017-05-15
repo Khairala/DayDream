@@ -48,7 +48,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
                 Toast.makeText(context, "this position number = " + position, Toast.LENGTH_SHORT).show();
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("message");
-
                 myRef.setValue(position+"");
             }
         });
