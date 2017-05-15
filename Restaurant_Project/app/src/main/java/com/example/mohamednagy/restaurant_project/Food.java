@@ -45,7 +45,6 @@ public class Food extends Fragment implements AdapterView.OnItemSelectedListener
     SQLiteDatabase sql;
     RecyclerView recyclerView;
     Database db;
-    ArrayList<FoodItem> foodItems;
     ArrayAdapter<String> adapter;
     Spinner categorySpinner;
     @Override
@@ -57,15 +56,22 @@ public class Food extends Fragment implements AdapterView.OnItemSelectedListener
         }
         View view = inflater.inflate(R.layout.fragment_food, container, false);
         categorySpinner = (Spinner) view.findViewById(R.id.categorySpinner);
-        ArrayList<String> catArr = db.getCategory();
-        adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,catArr);
-
-
         recyclerView = (RecyclerView) view.findViewById(R.id.viewlist);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         sql = getActivity().openOrCreateDatabase("myDB",0,null);
         db = new Database(sql);
+
+        ArrayList<String> catArr = db.getCategory();
+        Log.e("List ==>",catArr.toString());
+        adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,catArr);
+        categorySpinner.setAdapter(adapter);
         categorySpinner.setOnItemSelectedListener(this);
+        ArrayList<FoodItem> foodList = db.getAllfood("category11");
+        //Log.e("DDDDDDDDDDD",foodList.toString());
+        FoodAdapter foodAdapter = new FoodAdapter(foodList);
+        recyclerView.setAdapter(foodAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+
         return view;
     }
 
@@ -74,9 +80,12 @@ public class Food extends Fragment implements AdapterView.OnItemSelectedListener
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         TextView txt = (TextView) view;
         ArrayList<FoodItem> foodList = db.getAllfood(txt.getText().toString());
+
         FoodAdapter foodAdapter = new FoodAdapter(foodList);
         recyclerView.setAdapter(foodAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+
     }
 
     @Override

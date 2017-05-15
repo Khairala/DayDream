@@ -38,19 +38,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Va
         final Button login = (Button) findViewById(R.id.login);
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
-       // db.dropFoodtable();
-        //db.dropCategorytable();
-        //db.createTables();
-        db.addCategory("category11");
-        db.addCategory("category2");
-        db.addCategory("category3");
+      /*  db.dropFoodtable();
+        db.dropCategorytable();
+       db.createTables();
+        db.addCategory("Pizza");
+        db.addCategory("Kiko");
+        db.addCategory("Burger");
         //db.addUser();
-        /*int id1 = getResources().getIdentifier("f1","drawable",getPackageName());
-        db.addFood("Burger","10$",id1,"category1");
+        int id1 = getResources().getIdentifier("f1","drawable",getPackageName());
+        db.addFood("Burger","10$",id1,"Pizza");
         int id2 = getResources().getIdentifier("f2","drawable",getPackageName());
-        db.addFood("Burger","10$",id2,"category2");
+        db.addFood("Burger","10$",id2,"Kiko");
         int id3 = getResources().getIdentifier("f3","drawable",getPackageName());
-        db.addFood("Burger","10$",id3,"category3");*/
+        db.addFood("Burger","10$",id3,"Burger");
+        int id4 = getResources().getIdentifier("f1","drawable",getPackageName());
+        db.addFood("Burger","10$",id4,"Burger");
+        int id5 = getResources().getIdentifier("f2","drawable",getPackageName());
+        db.addFood("Burger","10$",id5,"Kiko");
+        int id6 = getResources().getIdentifier("f3","drawable",getPackageName());
+        db.addFood("Burger","10$",id6,"Pizza");
+      //  db.getFoods();*/
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("message");
@@ -100,7 +107,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Va
         // This method is called once with the initial value and again
         // whenever data at this location is updated.
         String value = dataSnapshot.getValue(String.class);
-
+        sendNotification("A new Food Added \uD83D\uDE0A"+value);
     }
 
     @Override
