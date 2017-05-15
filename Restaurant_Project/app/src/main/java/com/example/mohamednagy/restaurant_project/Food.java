@@ -20,6 +20,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.RecyclerView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +36,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Food extends Fragment {
+public class Food extends Fragment implements AdapterView.OnItemSelectedListener{
 
 
     public Food() {
@@ -42,6 +46,8 @@ public class Food extends Fragment {
     RecyclerView recyclerView;
     Database db;
     ArrayList<FoodItem> foodItems;
+    ArrayAdapter<String> adapter;
+    Spinner categorySpinner;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,18 +56,31 @@ public class Food extends Fragment {
             container.removeAllViewsInLayout();
         }
         View view = inflater.inflate(R.layout.fragment_food, container, false);
+        categorySpinner = (Spinner) view.findViewById(R.id.categorySpinner);
+        ArrayList<String> catArr = db.getCategory();
+        adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,catArr);
+
+
         recyclerView = (RecyclerView) view.findViewById(R.id.viewlist);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         sql = getActivity().openOrCreateDatabase("myDB",0,null);
         db = new Database(sql);
-        foodItems = db.getAllfood();
-        FoodAdapter foodAdapter = new FoodAdapter(this.foodItems);
-        recyclerView.setAdapter(foodAdapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
+        categorySpinner.setOnItemSelectedListener(this);
         return view;
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        TextView txt = (TextView) view;
+        ArrayList<FoodItem> foodList = db.getAllfood(txt.getText().toString());
+        FoodAdapter foodAdapter = new FoodAdapter(foodList);
+        recyclerView.setAdapter(foodAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

@@ -14,20 +14,18 @@ public class Database {
     {
         this.sql = sql;
     }
-    public void dropTables()
-    {
-        String dropQuery = "DROP TABLE IF EXISTS users";
-        sql.execSQL(dropQuery);
-        Log.e("table" , "drop allllllllll");
-    }
+
 
     public void createTables()
     {
         try {
 
-            String userTable = "create table if not exists users (ID INTEGER PRIMARY KEY AUTOINCREMENT,userName text not null unique" +
-                    ", Email text not null, Password text not null , Address text not null , Phone address not null)";
-            sql.execSQL(userTable);
+            sql.execSQL("create table if not exists users (ID INTEGER PRIMARY KEY AUTOINCREMENT,userName text not null unique" +
+                    ", Email text not null, Password text not null , Address text not null , Phone address not null)");
+            sql.execSQL("create table if not exists category (ID INTEGER PRIMARY KEY AUTOINCREMENT,categoryName text unique");
+            sql.execSQL("create table if not exists food (ID INTEGER PRIMARY KEY AUTOINCREMENT,food_name text" +
+                    ", price text,image text,categoryID INTEGER , FOREIGN KEY(categoryID) REFERENCES category(ID))");
+
             Log.e("table" , "tableCreated xxxxxxxxxxxxxxxxxxxxx");
         }catch (Exception e)
         {
@@ -35,7 +33,6 @@ public class Database {
             e.printStackTrace();
         }
     }
-
 
     public void addUser ()
     {
@@ -86,26 +83,41 @@ public class Database {
         }else{return null;}
     }
 
-    public void createfoodtable()
+    public void addFood(String foodName,String price,int img,String categoryName)
     {
-        try {
-            sql.execSQL("create table if not exists food (ID INTEGER PRIMARY KEY AUTOINCREMENT,food_name text" +
-                    ", price text,image text)");
-        }catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-    public void addFood(String name,String price,int img)
-    {
-        sql.execSQL("insert into food(food_name,price,image) values ('"+name+"' , '"+price+"', '"+img+"')");
+        Cursor cur = sql.rawQuery("select ID from category where categoryName = '"+categoryName+"'",null);
+        int ID = cur.getInt(0);
+        sql.execSQL("insert into food(food_name,price,image,categoryID) values ('"+foodName+"' , '"+price+"', '"+img+ "'" + ID + ")" );
         Log.e("food added","added");
     }
 
-    public ArrayList<FoodItem> getAllfood()
+    public void addCategory(String name)
     {
+        sql.execSQL("insert into category ( categoryName) values ('" + name + "')");
+    }
+
+    public ArrayList<String> getCategory()
+    {
+        ArrayList<String> arr = new ArrayList<String>();
+        Cursor cur = sql.rawQuery("select categoryName from category ",null);
+        if (cur.getCount() > 0)
+        {
+            while (cur.moveToNext())
+            {
+                arr.add(cur.getString(0));
+            }
+            cur.close();
+            return arr;
+        }else{return null;}
+    }
+
+    public ArrayList<FoodItem> getAllfood(String categoryName)
+    {
+        Cursor curX = sql.rawQuery("select ID from category where categoryName = '"+categoryName+"'",null);
+        int ID = curX.getInt(0);
+
         ArrayList<FoodItem> arr = new ArrayList<FoodItem>();
-        Cursor cur = sql.rawQuery("select food_name,price,image from food ",null);
+        Cursor cur = sql.rawQuery("select food_name,price,image from food where categoryID = "+ID,null);
         if (cur.getCount() > 0)
         {
             while (cur.moveToNext())
@@ -117,9 +129,22 @@ public class Database {
             return arr;
         }else{return null;}
     }
-    public void dropTablesfood()
+    public void dropFoodtable()
     {
         String dropQuery = "DROP TABLE IF EXISTS food";
+        sql.execSQL(dropQuery);
+        Log.e("table" , "drop allllllllll");
+    }
+    public void dropCategorytable()
+    {
+        String dropQuery = "DROP TABLE IF EXISTS category";
+        sql.execSQL(dropQuery);
+        Log.e("table" , "drop allllllllll");
+    }
+
+    public void dropUsertable()
+    {
+        String dropQuery = "DROP TABLE IF EXISTS users";
         sql.execSQL(dropQuery);
         Log.e("table" , "drop allllllllll");
     }

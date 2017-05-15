@@ -38,13 +38,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Va
         final Button login = (Button) findViewById(R.id.login);
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
-        //  db.dropTables();
+       // db.dropFoodtable();
+        //db.dropCategorytable();
         //db.createTables();
+        db.addCategory("category11");
+        db.addCategory("category2");
+        db.addCategory("category3");
         //db.addUser();
-        // db.dropTablesfood();
-        db.createfoodtable();
-        //  int id = getResources().getIdentifier("f2","drawable",getPackageName());
-        //db.addFood("Burger","10$",id);
+        /*int id1 = getResources().getIdentifier("f1","drawable",getPackageName());
+        db.addFood("Burger","10$",id1,"category1");
+        int id2 = getResources().getIdentifier("f2","drawable",getPackageName());
+        db.addFood("Burger","10$",id2,"category2");
+        int id3 = getResources().getIdentifier("f3","drawable",getPackageName());
+        db.addFood("Burger","10$",id3,"category3");*/
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("message");
