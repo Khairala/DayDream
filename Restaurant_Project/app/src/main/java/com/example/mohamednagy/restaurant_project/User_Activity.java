@@ -58,6 +58,16 @@ public class User_Activity extends AppCompatActivity {
             ft.replace(R.id.fragmentContent,about);
             ft.commit();
         }
+        else if(item.getTitle().equals("Sign Out"))
+        {
+            Intent intent = new Intent(this,Login.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }

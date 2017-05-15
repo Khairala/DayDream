@@ -1,39 +1,34 @@
 package com.example.mohamednagy.restaurant_project;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.RingtoneManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-import java.io.FileInputStream;
-import java.util.ArrayList;
-
-public class Login extends AppCompatActivity implements View.OnClickListener ,ValueEventListener{
+public class Login extends AppCompatActivity implements View.OnClickListener, ValueEventListener, ChildEventListener {
     SQLiteDatabase sql;
     EditText userName;
     EditText passWord;
     Database db;
+    DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +36,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener ,Va
         userName = (EditText) findViewById(R.id.userName);
         passWord = (EditText) findViewById(R.id.passWord);
         final Button login = (Button) findViewById(R.id.login);
-        sql = openOrCreateDatabase("myDB" ,0,null);
+        sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
         //  db.dropTables();
         //db.createTables();
@@ -52,31 +47,37 @@ public class Login extends AppCompatActivity implements View.OnClickListener ,Va
         //db.addFood("Burger","10$",id);
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        myRef = database.getReference("message");
         myRef.addValueEventListener(this);
+        myRef.addChildEventListener(this);
         login.setOnClickListener(this);
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    @Override
     public void onClick(View v) {
-        String userData = db.checkLogin(userName.getText().toString() , passWord.getText().toString());
-        if(userData != null)
-        {
-            Intent intent = new Intent(getBaseContext() , User_Activity.class);
+        String userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
+        if (userData != null) {
+            Intent intent = new Intent(getBaseContext(), User_Activity.class);
             intent.putExtra("Id", userData);
             startActivity(intent);
         }
     }
 
-    public void sendNotification(String Body){
+    public void sendNotification(String Body) {
         Intent intent = new Intent(this, Food.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0 , intent,PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         // sound
         Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        NotificationCompat.Builder  builder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.about)
                 .setContentTitle("DayDream")
                 .setContentText(Body)
@@ -85,7 +86,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener ,Va
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0 , builder.build());
+        notificationManager.notify(0, builder.build());
     }
 
     @Override
@@ -94,9 +95,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener ,Va
         // whenever data at this location is updated.
         String value = dataSnapshot.getValue(String.class);
 
-        if(value != null ) {
-            sendNotification("A new Item Added \uD83D\uDE0A" + value);
-        }
+    }
+
+    @Override
+    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+    }
+
+    @Override
+    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        sendNotification("A new Item Added \uD83D\uDE0A" + dataSnapshot.getValue(String.class));
+    }
+
+    @Override
+    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+    }
+
+    @Override
+    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
     }
 
     @Override
@@ -105,6 +123,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener ,Va
         Log.w("Fail", "Failed to read value.", databaseError.toException());
 
     }
+
 
 }
 
