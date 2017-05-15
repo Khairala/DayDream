@@ -21,10 +21,9 @@ public class Database {
             sql.execSQL("create table if not exists users (ID INTEGER PRIMARY KEY AUTOINCREMENT,userName text not null unique" +
                     ", Email text not null, Password text not null , Address text not null , Phone address not null)");
             sql.execSQL("create table if not exists category (ID INTEGER PRIMARY KEY AUTOINCREMENT,categoryName text unique)");
-            sql.execSQL("create table if not exists food (ID INTEGER PRIMARY KEY AUTOINCREMENT,food_name text" +
+            sql.execSQL("create table if not exists food (ID INTEGER PRIMARY KEY AUTOINCREMENT,food_name text unique" +
                     ", price text,image text,categoryID INTEGER , FOREIGN KEY(categoryID) REFERENCES category(ID))");
-
-            Log.e("table", "tableCreated xxxxxxxxxxxxxxxxxxxxx");
+            sql.execSQL("create table if not exists orders (ID INTEGER PRIMARY KEY AUTOINCREMENT,foodname text,price text, uID INTEGER)");
         } catch (Exception e) {
             Log.e("table", "ERRRRRRRRRRRRORRRRRR");
             e.printStackTrace();
@@ -163,4 +162,31 @@ public class Database {
         sql.execSQL(dropQuery);
         Log.e("table", "drop allllllllll");
     }
+
+    public void addOrder(String foodName, String price,int userId) {
+        try {
+            sql.execSQL("insert into orders(foodname,price,uID) values ('" + foodName + "' , '" + price + "' , "+userId+" )");
+            Log.e("order added", "added");
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public ArrayList<String> getUserOrder(int id) {
+        Log.e("ID ISSSSSSSS", " "+id);
+        ArrayList<String> arr = new ArrayList<String>();
+        Cursor cur = sql.rawQuery("select foodname,price from orders where uID = " + id, null);
+        if (cur.getCount() > 0) {
+            while (cur.moveToNext()) {
+                arr.add("Food Name == > "+cur.getString(0)+" Price == > "+cur.getString(1));
+            }
+        }
+        cur.close();
+        return arr;
+    }
+
+
+
 }

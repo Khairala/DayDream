@@ -37,26 +37,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         final Button login = (Button) findViewById(R.id.login);
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
-      /*  db.dropFoodtable();
+        db.dropFoodtable();
         db.dropCategorytable();
-       db.createTables();
+        db.createTables();
         db.addCategory("Pizza");
         db.addCategory("Kiko");
         db.addCategory("Burger");
         //db.addUser();
         int id1 = getResources().getIdentifier("f1","drawable",getPackageName());
-        db.addFood("Burger","10$",id1,"Pizza");
+        db.addFood("Burger1","10$",id1,"Pizza");
         int id2 = getResources().getIdentifier("f2","drawable",getPackageName());
-        db.addFood("Burger","10$",id2,"Kiko");
+        db.addFood("Burger2","10$",id2,"Kiko");
         int id3 = getResources().getIdentifier("f3","drawable",getPackageName());
-        db.addFood("Burger","10$",id3,"Burger");
+        db.addFood("Burger3","10$",id3,"Burger");
         int id4 = getResources().getIdentifier("f1","drawable",getPackageName());
-        db.addFood("Burger","10$",id4,"Burger");
+        db.addFood("Burger4","10$",id4,"Burger");
         int id5 = getResources().getIdentifier("f2","drawable",getPackageName());
-        db.addFood("Burger","10$",id5,"Kiko");
+        db.addFood("Burger5","10$",id5,"Kiko");
         int id6 = getResources().getIdentifier("f3","drawable",getPackageName());
-        db.addFood("Burger","10$",id6,"Pizza");
-      //  db.getFoods();*/
+        db.addFood("Burger6","10$",id6,"Pizza");
+      //  db.getFoods();*
 
         login.setOnClickListener(this);
     }

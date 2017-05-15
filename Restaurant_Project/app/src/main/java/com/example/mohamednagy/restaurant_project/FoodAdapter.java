@@ -5,6 +5,8 @@ package com.example.mohamednagy.restaurant_project;
  */
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,9 @@ import java.util.ArrayList;
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     private ArrayList<FoodItem> foodItems;
     private Context context;
+    SQLiteDatabase sql;
+    Database db;
+    TextView holderTxt;
 
     public FoodAdapter(ArrayList<FoodItem> foodItems) {
         this.foodItems = foodItems;
@@ -34,11 +39,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
         ViewHolder viewHolder = new ViewHolder(itemLayout);
         context = parent.getContext();
+        sql = itemLayout.getContext().openOrCreateDatabase("myDB",0,null);
+        db = new Database(sql);
+
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.title.setText(this.foodItems.get(position).title);
         holder.price.setText(this.foodItems.get(position).price);
         holder.image.setImageResource(this.foodItems.get(position).imageUrl);
@@ -46,6 +54,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "this position number = " + position, Toast.LENGTH_SHORT).show();
+                db.addOrder(foodItems.get(position).title,foodItems.get(position).price, 1);
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("message");
                 myRef.setValue(position+"");
@@ -70,6 +79,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             price = (TextView) itemView.findViewById(R.id.foodprice);
             image = (ImageView) itemView.findViewById(R.id.foodImage);
             request = (Button) itemView.findViewById(R.id.request);
+            holderTxt = (TextView)  itemView.findViewById(R.id.holder);
+            //Log.e("RRRRRRRRRR",holderTxt.getText().toString());
+
         }
     }
 }

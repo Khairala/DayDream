@@ -42,7 +42,7 @@ public class Profile extends Fragment {
         //db.createTables();
        // db.addUser();
         Bundle extras = getActivity().getIntent().getExtras();
-        Log.e("GGGGGGGGGGGGGGGGGGGgg",extras.getString("Id"));
+        //Log.e("GGGGGGGGGGGGGGGGGGGgg",extras.getString("Id"));
         ArrayList<String> arr = db.getUser(Integer.parseInt(extras.getString("Id")));
         name.setText(arr.get(0));
         email.setText(arr.get(1));
