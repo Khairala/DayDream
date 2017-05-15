@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "497695249564-uga1hjs6mqsv7hicdrchmgkmk77hqi1t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mohamednagy.restaurant_project",
+            "certificate_hash": "5c95cb45f8cd972715ec8cef1eca383578552c64"
+          }
+        },
+        {
           "client_id": "497695249564-ih17tlsd6mhlv2j34ofs90h6uq0f1f5j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
