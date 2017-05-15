@@ -12,6 +12,7 @@ public class DeleteFood extends Activity implements AdapterView.OnItemSelectedLi
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        
 
     }
 
