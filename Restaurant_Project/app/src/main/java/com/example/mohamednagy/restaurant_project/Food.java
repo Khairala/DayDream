@@ -48,10 +48,7 @@ public class Food extends Fragment {
         FoodAdapter foodAdapter = new FoodAdapter(this.foodItems);
         recyclerView.setAdapter(foodAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
 
-        myRef.setValue("Nagy");
         return view;
     }
 
