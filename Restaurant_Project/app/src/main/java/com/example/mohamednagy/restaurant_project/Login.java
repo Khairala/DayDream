@@ -28,7 +28,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity implements View.OnClickListener,ValueEventListener {
     SQLiteDatabase sql;
     EditText userName;
     EditText passWord;
@@ -49,7 +49,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         db.createfoodtable();
        //  int id = getResources().getIdentifier("f2","drawable",getPackageName());
         //db.addFood("Burger","10$",id);
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
 
+        // Read from the database
+        myRef.addValueEventListener(this);
         login.setOnClickListener(this);
     }
 
@@ -68,34 +73,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             Profile fragobj = new Profile();
             fragobj.setArguments(bundle);
             Intent intent = new Intent(getBaseContext() , User_Activity.class);
-
-
-            // Write a message to the database
-          /*  FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("message");
-
-            myRef.setValue(userData.get(0));
-
-            // Read from the database
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-                    String value = dataSnapshot.getValue(String.class);
-                    Log.d("Nagy", "Value is: " + value);
-                    sendNotification("A new Item Added :)");
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    Log.w("Nagy", "Failed to read value.", error.toException());
-                }
-            });*/
             startActivity(intent);
         }
     }
+
+
     public void sendNotification(String Body){
         Intent intent = new Intent(this,User_Activity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -106,8 +88,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder  builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Restaurant App")
+                .setSmallIcon(R.drawable.about)
+                .setContentTitle("DayDream")
                 .setContentText(Body)
                 .setAutoCancel(true)
                 .setSound(notificationSound)
@@ -115,6 +97,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0 , builder.build());
+    }
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        // This method is called once with the initial value and again
+        // whenever data at this location is updated.
+        String value = dataSnapshot.getValue(String.class);
+        Log.e("Nagy", "Value is: " + value);
+        sendNotification("A new Item Added :)");
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+        // Failed to read value
+        Log.w("Nagy", "Failed to read value.", databaseError.toException());
+
     }
 }
 
