@@ -57,6 +57,9 @@ public class User_List extends Fragment implements AdapterView.OnItemSelectedLis
             }else if (txt.getText().toString() == "Profile")
             {
                 Profile prof = new Profile();
+                Bundle bundle = getActivity().getIntent().getExtras();
+                prof.setArguments(bundle);
+
                 ft.replace(R.id.fragmentContent,prof);
                 ft.commit();
             }else if (txt.getText().toString() == "About")

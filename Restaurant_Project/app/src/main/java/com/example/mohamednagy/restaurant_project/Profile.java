@@ -4,6 +4,7 @@ package com.example.mohamednagy.restaurant_project;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,9 @@ public class Profile extends Fragment {
        // db.dropTables();
         //db.createTables();
        // db.addUser();
-        ArrayList<String> arr = db.getUser(1);
+        Bundle extras = getActivity().getIntent().getExtras();
+        Log.e("GGGGGGGGGGGGGGGGGGGgg",extras.getString("Id"));
+        ArrayList<String> arr = db.getUser(Integer.parseInt(extras.getString("Id")));
         name.setText(arr.get(0));
         email.setText(arr.get(1));
         password.setText(arr.get(2));

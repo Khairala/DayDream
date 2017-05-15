@@ -12,9 +12,5 @@ public class User_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_layout);
-        Bundle bundle = getIntent().getExtras();
-        Profile fragobj = new Profile();
-        fragobj.setArguments(bundle);
-
     }
 }

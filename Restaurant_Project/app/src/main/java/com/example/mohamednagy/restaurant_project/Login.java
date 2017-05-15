@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.RingtoneManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -60,19 +62,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Val
 
     @Override
     public void onClick(View v) {
-        ArrayList<String> userData = db.checkLogin(userName.getText().toString() , passWord.getText().toString());
+        String userData = db.checkLogin(userName.getText().toString() , passWord.getText().toString());
         if(userData != null)
         {
-            Log.e("mmmmmmmmmmmm","kkkkkkkkk");
-            Bundle bundle = new Bundle();
-            bundle.putString("userName", userData.get(0));
-            bundle.putString("Email", userData.get(1));
-            bundle.putString("Password", userData.get(2));
-            bundle.putString("Address", userData.get(3));
-            bundle.putString("Phone", userData.get(4));
-            Profile fragobj = new Profile();
-            fragobj.setArguments(bundle);
             Intent intent = new Intent(getBaseContext() , User_Activity.class);
+
+            Log.e("mmmmmmmmmmmm","kkkkkkkkk");
+            intent.putExtra("Id", userData);
             startActivity(intent);
         }
     }
@@ -105,7 +101,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Val
         // whenever data at this location is updated.
         String value = dataSnapshot.getValue(String.class);
         Log.e("Nagy", "Value is: " + value);
-        sendNotification("A new Item Added :)");
+        if(isNetworkAvailable()) {
+            sendNotification("A new Item Added :)");
+        }
     }
 
     @Override
@@ -113,6 +111,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener,Val
         // Failed to read value
         Log.w("Nagy", "Failed to read value.", databaseError.toException());
 
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
 

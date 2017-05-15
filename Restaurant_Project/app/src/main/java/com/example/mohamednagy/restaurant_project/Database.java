@@ -39,7 +39,7 @@ public class Database {
 
     public void addUser ()
     {
-        sql.execSQL("insert into users(userName,Email,Password,Address,Phone) values ('kiko' , 'medoo1192@gmail.com' , '123' , 'cairo' , '01144098850')");
+        sql.execSQL("insert into users(userName,Email,Password,Address,Phone) values ('kiko1111' , 'medoo1192@gmail.com' , '12345' , 'cairo' , '01144098850')");
         Log.e("user added","added");
     }
 
@@ -69,24 +69,20 @@ public class Database {
         sql.execSQL(query);
         Log.e("update" , "updaaaaaaaaaaaaaaaaaaaaaaaaaaaaated");
     }
-    public ArrayList<String> checkLogin (String userName , String Password)
+    public String checkLogin (String userName , String Password)
     {
-        ArrayList<String> arr = new ArrayList<String>();
-        Cursor cur = sql.rawQuery("select userName,Email,Password,Address,Phone from users where userName = "+ "'"+userName+"'"+
-                " and Password = "+ "'"+Password+"'",null);
+        String Id = new String();
+        Cursor cur = sql.rawQuery("select ID from users where userName = "+ "'"+userName+"'"
+             + " and Password = "+ "'"+Password+"'",null);
         if (cur.getCount() > 0)
         {
             while (cur.moveToNext())
             {
-                arr.add(cur.getString(0));
-                arr.add(cur.getString(1));
-                arr.add(cur.getString(2));
-                arr.add(cur.getString(3));
-                arr.add(cur.getString(4));
+                Id = cur.getString(0);
             }
             Log.e("found" , "user FOUUUUUUUUUUUUUUUUND");
             cur.close();
-            return arr;
+            return Id;
         }else{return null;}
     }
 
