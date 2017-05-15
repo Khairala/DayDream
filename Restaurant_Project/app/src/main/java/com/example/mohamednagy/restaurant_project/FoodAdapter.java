@@ -22,12 +22,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import static com.example.mohamednagy.restaurant_project.Login.userData;
+
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     private ArrayList<FoodItem> foodItems;
     private Context context;
     SQLiteDatabase sql;
     Database db;
-    TextView holderTxt;
+    TextView HolderTxt ;
+
 
     public FoodAdapter(ArrayList<FoodItem> foodItems) {
         this.foodItems = foodItems;
@@ -54,7 +57,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "this position number = " + position, Toast.LENGTH_SHORT).show();
-                db.addOrder(foodItems.get(position).title,foodItems.get(position).price, 1);
+                db.addOrder(foodItems.get(position).title,foodItems.get(position).price, Integer.parseInt(userData));
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("message");
                 myRef.setValue(position+"");
@@ -79,8 +82,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             price = (TextView) itemView.findViewById(R.id.foodprice);
             image = (ImageView) itemView.findViewById(R.id.foodImage);
             request = (Button) itemView.findViewById(R.id.request);
-            holderTxt = (TextView)  itemView.findViewById(R.id.holder);
-            //Log.e("RRRRRRRRRR",holderTxt.getText().toString());
 
         }
     }

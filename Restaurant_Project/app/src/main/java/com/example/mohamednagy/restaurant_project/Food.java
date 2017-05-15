@@ -79,8 +79,8 @@ public class Food extends Fragment implements AdapterView.OnItemSelectedListener
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         TextView txt = (TextView) view;
-        ArrayList<FoodItem> foodList = db.getAllfood(txt.getText().toString());
 
+        ArrayList<FoodItem> foodList = db.getAllfood(txt.getText().toString());
         FoodAdapter foodAdapter = new FoodAdapter(foodList);
         recyclerView.setAdapter(foodAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

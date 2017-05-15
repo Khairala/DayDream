@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import static com.example.mohamednagy.restaurant_project.Login.userData;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,13 +31,16 @@ public class Orders extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if (container != null) {
+            container.removeAllViewsInLayout();
+        }
         View view =  inflater.inflate(R.layout.fragment_orders, container, false);
         sql = getActivity().openOrCreateDatabase("myDB",0,null);
         db = new Database(sql);
 
         ListView orderList = (ListView) view.findViewById(R.id.orderList);
         TextView holderTxt = (TextView) view.findViewById(R.id.holder);
-        ArrayAdapter<String> listOforder = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,db.getUserOrder(1));
+        ArrayAdapter<String> listOforder = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,db.getUserOrder(Integer.parseInt(userData)));
         orderList.setAdapter(listOforder);
         return view;
     }

@@ -27,6 +27,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText userName;
     EditText passWord;
     Database db;
+    public static String userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         final Button login = (Button) findViewById(R.id.login);
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
-        db.dropFoodtable();
+        /*db.dropFoodtable();
         db.dropCategorytable();
         db.createTables();
         db.addCategory("Pizza");
         db.addCategory("Kiko");
         db.addCategory("Burger");
-        //db.addUser();
+        db.addUser();
         int id1 = getResources().getIdentifier("f1","drawable",getPackageName());
         db.addFood("Burger1","10$",id1,"Pizza");
         int id2 = getResources().getIdentifier("f2","drawable",getPackageName());
@@ -56,8 +57,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         db.addFood("Burger5","10$",id5,"Kiko");
         int id6 = getResources().getIdentifier("f3","drawable",getPackageName());
         db.addFood("Burger6","10$",id6,"Pizza");
-      //  db.getFoods();*
-
+        //  db.getFoods();*
+        */
         login.setOnClickListener(this);
     }
 
@@ -65,7 +66,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        String userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
+        userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
         if (userData != null) {
             Intent intent = new Intent(getBaseContext(), User_Activity.class);
             intent.putExtra("Id", userData);
