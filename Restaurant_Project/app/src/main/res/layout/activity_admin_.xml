@@ -4,14 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mohamednagy.restaurant_project.User_Activity"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp"
-    android:weightSum="1"
-    android:layout_weight="1">
+    tools:context="com.example.mohamednagy.restaurant_project.Admin_Activity">
+
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/usertoolbar"
+        android:id="@+id/admintoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -22,8 +19,8 @@
         tools:layout_editor_absoluteY="-7dp" />
 
     <fragment
-        android:id="@+id/fragmentContent"
-        android:name="com.example.mohamednagy.restaurant_project.UserProfile"
+        android:id="@+id/fragmentContentAdmin"
+        android:name="com.example.mohamednagy.restaurant_project.AdminProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_conversion_absoluteX="0dp"
@@ -38,8 +35,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_below="@+id/usertoolbar"
-         />
-
-
+        />
 
 </RelativeLayout>

@@ -87,11 +87,15 @@
         android:layout_width="136dp"
         android:layout_height="21dp"
         android:ems="10"
-        android:text="@string/registerInLogin"
+        android:text="Don't hava an account"
         android:layout_marginStart="52sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="91dp"
-        tools:layout_editor_absoluteX="124dp" />
+        android:layout_marginBottom="92dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/registerFromLogin"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.538" />
 
     <Button
         android:id="@+id/registerFromLogin"

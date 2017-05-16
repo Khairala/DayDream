@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/profileAdmin"
+        android:title="Profile"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/addCategory"
+        android:title="Add Category"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/DeleteCategory"
+        android:title="Delete Category"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/addFood"
+        android:title="Add Food"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/DeleteFood"
+        android:title="Delete Food"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/SignInlist"
+        android:title="Sign Out"
+        app:showAsAction="never"
+        />
+</menu>

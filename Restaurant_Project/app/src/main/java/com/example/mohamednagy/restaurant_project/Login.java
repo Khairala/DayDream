@@ -28,6 +28,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText passWord;
     Database db;
     public static String userData;
+    Button login;
+    Button register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         userName = (EditText) findViewById(R.id.userName);
         passWord = (EditText) findViewById(R.id.passWord);
-        final Button login = (Button) findViewById(R.id.login);
+         login= (Button) findViewById(R.id.login);
+        register= (Button) findViewById(R.id.registerFromLogin);
+
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
         /*db.dropFoodtable();
@@ -60,18 +64,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //  db.getFoods();*
         */
         login.setOnClickListener(this);
+        register.setOnClickListener(this);
     }
 
 
 
     @Override
     public void onClick(View v) {
-        userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
-        if (userData != null) {
-            Intent intent = new Intent(getBaseContext(), User_Activity.class);
-            intent.putExtra("Id", userData);
+        if(v == login) {
+            userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
+            if (userData != null) {
+                Intent intent = new Intent(getBaseContext(), User_Activity.class);
+                intent.putExtra("Id", userData);
+                startActivity(intent);
+            }
+        }else if(v== register)
+        {
+            Intent intent = new Intent(getBaseContext(), Register.class);
             startActivity(intent);
         }
+
     }
 
 

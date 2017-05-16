@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Profile extends Fragment {
+public class UserProfile extends Fragment {
     SQLiteDatabase sql;
 
     @Override
