@@ -44,7 +44,6 @@
     <Button
         android:id="@+id/login"
         android:background="@color/register_loginBtn"
-
         android:layout_width="193dp"
         android:layout_height="41dp"
         android:text="Login"

@@ -96,6 +96,7 @@
         android:layout_width="193dp"
         android:layout_height="41dp"
         android:textAlignment="center"
+        android:fontFamily="sans-serif-smallcaps"
         android:background="@color/register_loginBtn"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
