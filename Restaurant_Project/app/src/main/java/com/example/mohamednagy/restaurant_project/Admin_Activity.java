@@ -68,7 +68,9 @@ public class Admin_Activity extends AppCompatActivity implements ValueEventListe
 
         }else if (item.getTitle().equals("Add Food"))
         {
-
+            addFood addFood = new addFood();
+            ft.replace(R.id.fragmentContentAdmin,addFood);
+            ft.commit();
         }
         else if (item.getTitle().equals("Profile"))
         {

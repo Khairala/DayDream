@@ -17,6 +17,9 @@
     <string name="RegisterTxt">Register</string>
     <string name="RegisterForm">SIGN UP</string>
     <string name="registerInLogin">Don\'t Have Account ?</string>
-
+    <string name="addFood">Add</string>
+    <string name="addFoodname">foodName</string>
+    <string name="addprice">Price</string>
+    <string name="addphoto">photo</string>
 
 </resources>
