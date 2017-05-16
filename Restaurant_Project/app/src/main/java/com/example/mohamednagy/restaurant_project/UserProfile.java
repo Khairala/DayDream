@@ -52,8 +52,15 @@ public class UserProfile extends Fragment {
         name.setEnabled(false);
         save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                db.updateUser(name.getText().toString(),email.getText().toString(),password.getText().toString(),address.getText().toString(),phone.getText().toString());
-                Toast.makeText(view.getContext() , "DATA UPDATED \uD83D\uDE0A" , Toast.LENGTH_LONG).show();
+                if(password.getText().toString().length() > 6 && email.getText().toString().matches("^[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+$") && address.getText().toString().length() > 3 && phone.getText().toString().length() == 11)
+                {
+                    db.updateUser(name.getText().toString(),email.getText().toString(),password.getText().toString(),address.getText().toString(),phone.getText().toString());
+                    Toast.makeText(view.getContext() , "DATA UPDATED \uD83D\uDE0A" , Toast.LENGTH_LONG).show();
+                }else
+                {
+                    Toast.makeText(view.getContext() , "Wrong Data \uD83D\uDE1E" ,Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         return view;

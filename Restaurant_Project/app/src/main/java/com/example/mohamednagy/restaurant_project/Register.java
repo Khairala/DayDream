@@ -106,11 +106,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if (Email.getText().toString().matches("^[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+$")) {
+                    if (Email.getText().toString().matches("^[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+$")) {
                         emailFalse.setVisibility(View.INVISIBLE);
                         emailTick.setVisibility(View.VISIBLE);
                         valid++;
-                    } else if (Email.getText().toString().length() == 0 || !Email.getText().toString().matches("^[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+$")) {
+                    } else if (Email.getText().toString().length() == 0 || !Email.getText().toString().matches("^[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+$")) {
                         emailTick.setVisibility(View.INVISIBLE);
                         emailFalse.setVisibility(View.VISIBLE);
                         valid--;
@@ -178,14 +178,30 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         if (phoneTick.isShown() && usernameTick.isShown() && passwordTick.isShown() && emailTick.isShown() && addressTick.isShown()) {
             if(db.checkAvilabilty(userName.getText().toString())) {
                 db.addUser(userName.getText().toString(),password.getText().toString(),Email.getText().toString(),address.getText().toString(),phone.getText().toString(),userType);
-                Intent intent = new Intent(this,Login.class);
-                startActivity(intent);
+                String userData = db.checkLogin(userName.getText().toString(),password.getText().toString());
+                if (userType.equals("Admin"))
+                {
+                    Intent intent = new Intent(this,Admin_Activity.class);
+                    intent.putExtra("Id", userData);
+                    startActivity(intent);
+                }else
+                {
+                    Intent intent = new Intent(this,User_Activity.class);
+                    intent.putExtra("Id", userData);
+                    startActivity(intent);
+                }
+
             }
             else {
-                Toast.makeText(this,"User Name Exists :(",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"User Name Exists \uD83D\uDE1E",Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(this, "There Is an Empty or Wrong Field(s)", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void onPause()
+    {
+        super.onPause();
+        finish();
     }
 }

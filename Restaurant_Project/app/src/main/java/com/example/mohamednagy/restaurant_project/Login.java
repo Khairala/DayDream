@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -42,29 +43,27 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
-       // db.dropUsertable();
+        /*db.dropUsertable();
         db.createTables();
-        /*db.dropFoodtable();
+        db.dropFoodtable();
         db.dropCategorytable();
         db.createTables();
         db.addCategory("Pizza");
-        db.addCategory("Kiko");
+        db.addCategory("Sea Food");
         db.addCategory("Burger");
-        db.addUser();
         int id1 = getResources().getIdentifier("f1","drawable",getPackageName());
         db.addFood("Burger1","10$",id1,"Pizza");
         int id2 = getResources().getIdentifier("f2","drawable",getPackageName());
-        db.addFood("Burger2","10$",id2,"Kiko");
+        db.addFood("Burger2","10$",id2,"Sea Food");
         int id3 = getResources().getIdentifier("f3","drawable",getPackageName());
         db.addFood("Burger3","10$",id3,"Burger");
         int id4 = getResources().getIdentifier("f1","drawable",getPackageName());
         db.addFood("Burger4","10$",id4,"Burger");
         int id5 = getResources().getIdentifier("f2","drawable",getPackageName());
-        db.addFood("Burger5","10$",id5,"Kiko");
+        db.addFood("Burger5","10$",id5,"Sea Food");
         int id6 = getResources().getIdentifier("f3","drawable",getPackageName());
         db.addFood("Burger6","10$",id6,"Pizza");
-        //  db.getFoods();*
-        */
+        //  db.getFoods();*/
         login.setOnClickListener(this);
         register.setOnClickListener(this);
     }
@@ -76,7 +75,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if(v == login) {
             Log.e("LLLLLLLLLL","Login");
             userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
-            Log.e("LLLLLLLLLL",userData);
             if (userData != null) {
                 String Type = db.getType(Integer.parseInt(userData));
                 Log.e("LLLLLLLLLL",Type);
@@ -90,6 +88,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     intent.putExtra("Id", userData);
                     startActivity(intent);
                 }
+            }else
+            {
+                Toast.makeText(this , "Wrong Account \uD83D\uDE41" , Toast.LENGTH_LONG).show();
             }
         }else if(v == register)
         {
@@ -97,6 +98,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
         }
 
+    }
+    public void onPause()
+    {
+        super.onPause();
+        finish();
     }
 
 

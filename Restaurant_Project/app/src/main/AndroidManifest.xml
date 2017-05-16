@@ -10,14 +10,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/logo2"
         android:label="@string/appName"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".User_Activity" />
         <activity
-            android:name=".Login"
-            android:theme="@style/Theme.Design.NoActionBar">
+            android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
