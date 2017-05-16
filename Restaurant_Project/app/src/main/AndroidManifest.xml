@@ -8,31 +8,23 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-
-
-
     <application
         android:allowBackup="true"
-        android:label="@string/appName"
         android:icon="@drawable/logo"
+        android:label="@string/appName"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".User_Activity">
-
-        </activity>
-
+        <activity android:name=".User_Activity"></activity>
         <activity
             android:name=".Login"
             android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
+        <activity android:name=".Register"></activity>
     </application>
-
 
 </manifest>
