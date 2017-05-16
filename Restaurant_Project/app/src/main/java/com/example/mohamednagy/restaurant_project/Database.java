@@ -107,16 +107,16 @@ public class Database {
         }
     }
 
-    public void getFoods() {
-        ArrayList<String> arr = new ArrayList<String>();
-        Cursor cur = sql.rawQuery("select categoryID from food", null);
+    public Boolean checkAvilabilty (String userName) {
+        Cursor cur = sql.rawQuery("select ID from users where userName = '"+userName+"'", null);
         if (cur.getCount() > 0) {
-            while (cur.moveToNext()) {
-                Log.e("ssssssssssssssss", cur.getInt(0) + "");
-            }
-            cur.close();
+            return false;
+        }else
+        {
+            return true;
         }
     }
+
 
 
     public ArrayList<FoodItem> getAllfood(String categoryName) {

@@ -91,7 +91,11 @@
         android:layout_marginStart="52sp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="91dp"
-        tools:layout_editor_absoluteX="124dp" />
+        app:layout_constraintRight_toLeftOf="@+id/registerFromLogin"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.862" />
 
     <Button
         android:id="@+id/registerFromLogin"

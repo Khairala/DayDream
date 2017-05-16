@@ -16,7 +16,7 @@
     <string name="phoneHint">Phone</string>
     <string name="RegisterTxt">Register</string>
     <string name="RegisterForm">Register Form</string>
-    <string name="registerInLogin">Don't Have Account ?</string>
+    <string name="registerInLogin">Don\'t Have Account ?</string>
 
 
 </resources>
