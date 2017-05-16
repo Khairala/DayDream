@@ -17,6 +17,7 @@
     <string name="RegisterTxt">Register</string>
     <string name="RegisterForm">SIGN UP</string>
     <string name="registerInLogin">Don\'t Have Account ?</string>
-
+    <string name="addcategory">ADD CATEGORY</string>
+    <string name="categoryLabel">Manage Categories</string>
 
 </resources>
