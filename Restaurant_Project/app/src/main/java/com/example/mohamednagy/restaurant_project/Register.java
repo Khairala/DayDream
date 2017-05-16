@@ -60,7 +60,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if (userName.getText().toString().length() != 0 && db.checkAvilabilty(userName.getText().toString())) {
+                    if (userName.getText().toString().length() != 0 && db.checkAvilabilty(userName.getText().toString(),"users","userName")) {
                         usernameFalse.setVisibility(View.INVISIBLE);
                         usernameTick.setVisibility(View.VISIBLE);
                         valid++;
@@ -176,7 +176,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         selectedType = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
         String userType = selectedType.getText().toString();
         if (phoneTick.isShown() && usernameTick.isShown() && passwordTick.isShown() && emailTick.isShown() && addressTick.isShown()) {
-            if(db.checkAvilabilty(userName.getText().toString())) {
+            if(db.checkAvilabilty(userName.getText().toString(),"users","userName")) {
                 db.addUser(userName.getText().toString(),password.getText().toString(),Email.getText().toString(),address.getText().toString(),phone.getText().toString(),userType);
                 String userData = db.checkLogin(userName.getText().toString(),password.getText().toString());
                 if (userType.equals("Admin"))

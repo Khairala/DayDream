@@ -58,6 +58,9 @@ public class Admin_Activity extends AppCompatActivity implements ValueEventListe
         FragmentTransaction ft = fm.beginTransaction();
         if(item.getTitle().equals("Add Category"))
         {
+            add_category cat = new add_category();
+            ft.replace(R.id.fragmentContentAdmin,cat);
+            ft.commit();
 
         }else if (item.getTitle().equals("Delete Category"))
         {

@@ -105,6 +105,7 @@ public class Database {
 
     public void addCategory(String name) {
         sql.execSQL("insert into category ( categoryName) values ('" + name + "')");
+        Log.e("category Found" , "Category Fouuuuuuuuund");
     }
 
     public ArrayList<String> getCategory() {
@@ -121,8 +122,8 @@ public class Database {
         }
     }
 
-    public Boolean checkAvilabilty (String userName) {
-        Cursor cur = sql.rawQuery("select ID from users where userName = '"+userName+"'", null);
+    public Boolean checkAvilabilty (String name , String tableName , String columnName) {
+        Cursor cur = sql.rawQuery("select ID from "+tableName+" where "+columnName+" = '"+name+"'", null);
         if (cur.getCount() > 0) {
             return false;
         }else
