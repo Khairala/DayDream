@@ -123,7 +123,6 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
     public void onCancelled(DatabaseError databaseError) {
         // Failed to read value
         Log.w("Fail", "Failed to read value.", databaseError.toException());
-
     }
 
 

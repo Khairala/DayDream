@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/fragmentContentAdmin"
-        android:name="com.example.mohamednagy.restaurant_project.AdminProfile"
+        android:name="com.example.mohamednagy.restaurant_project.UserProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_conversion_absoluteX="0dp"

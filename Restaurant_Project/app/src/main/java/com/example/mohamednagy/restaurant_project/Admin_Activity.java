@@ -72,7 +72,7 @@ public class Admin_Activity extends AppCompatActivity implements ValueEventListe
         }
         else if (item.getTitle().equals("Profile"))
         {
-            AdminProfile prof = new AdminProfile();
+            UserProfile prof = new UserProfile();
             Bundle bundle = this.getIntent().getExtras();
             prof.setArguments(bundle);
             ft.replace(R.id.fragmentContentAdmin,prof);

@@ -80,6 +80,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 Log.e("LLLLLLLLLL",Type);
                 if( Type.equals("User")) {
                     Intent intent = new Intent(getBaseContext(), User_Activity.class);
+                    Log.e("usrID ====>","   "+userData);
                     intent.putExtra("Id", userData);
                     startActivity(intent);
                 }
@@ -90,7 +91,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
             }else
             {
-                Toast.makeText(this , "Wrong Account \uD83D\uDE41" , Toast.LENGTH_LONG).show();
+                Toast.makeText(this , "Wrong Account \uD83D\uDE1E" , Toast.LENGTH_LONG).show();
             }
         }else if(v == register)
         {
