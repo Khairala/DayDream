@@ -23,13 +23,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class User_Activity extends AppCompatActivity implements ValueEventListener {
+public class Admin_Activity extends AppCompatActivity implements ValueEventListener{
 
     DatabaseReference myRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_layout);
+        setContentView(R.layout.activity_admin_);
+
 
         Bundle bundle = getIntent().getExtras();
         UserProfile userProfile = new UserProfile();
@@ -40,10 +41,10 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
         myRef = database.getReference("message");
         myRef.addValueEventListener(this);
 
-        Toolbar userToolbar = (Toolbar) findViewById(R.id.usertoolbar);
+        Toolbar userToolbar = (Toolbar) findViewById(R.id.admintoolbar);
         setSupportActionBar(userToolbar);
-    }
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflate = getMenuInflater();
@@ -55,30 +56,26 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
     public boolean onOptionsItemSelected(MenuItem item) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        if(item.getTitle().equals("Food"))
+        if(item.getTitle().equals("Add Category"))
         {
-            Food food = new Food();
-            ft.replace(R.id.fragmentContent,food);
-            ft.commit();
-        }else if (item.getTitle().equals("UserProfile"))
+
+        }else if (item.getTitle().equals("Delete Category"))
         {
-            UserProfile prof = new UserProfile();
+
+        }
+        else if (item.getTitle().equals("Delete Food"))
+        {
+
+        }else if (item.getTitle().equals("Add Food"))
+        {
+
+        }
+        else if (item.getTitle().equals("Profile"))
+        {
+            AdminProfile prof = new AdminProfile();
             Bundle bundle = this.getIntent().getExtras();
             prof.setArguments(bundle);
-            ft.replace(R.id.fragmentContent,prof);
-            ft.commit();
-        }else if (item.getTitle().equals("About Us"))
-        {
-            About about = new About();
-
-            ft.replace(R.id.fragmentContent,about);
-            ft.commit();
-        }
-        else if (item.getTitle().equals("Orders"))
-        {
-            Orders order = new Orders();
-
-            ft.replace(R.id.fragmentContent,order);
+            ft.replace(R.id.fragmentContentAdmin,prof);
             ft.commit();
         }
         else if(item.getTitle().equals("Sign Out"))
