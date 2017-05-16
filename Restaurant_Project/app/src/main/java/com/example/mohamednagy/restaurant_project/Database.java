@@ -19,7 +19,7 @@ public class Database {
         try {
 
             sql.execSQL("create table if not exists users (ID INTEGER PRIMARY KEY AUTOINCREMENT,userName text not null unique" +
-                    ", Email text not null, Password text not null , Address text not null , Phone address not null)");
+                    ", Email text not null, Password text not null , Address text not null , Phone text not null, type text not null)");
             sql.execSQL("create table if not exists category (ID INTEGER PRIMARY KEY AUTOINCREMENT,categoryName text unique)");
             sql.execSQL("create table if not exists food (ID INTEGER PRIMARY KEY AUTOINCREMENT,food_name text unique" +
                     ", price text,image text,categoryID INTEGER , FOREIGN KEY(categoryID) REFERENCES category(ID))");
@@ -30,8 +30,22 @@ public class Database {
         }
     }
 
-    public void addUser() {
-        sql.execSQL("insert into users(userName,Email,Password,Address,Phone) values ('kiko1111' , 'medoo1192@gmail.com' , '12345' , 'cairo' , '01144098850')");
+    public String getType(int id)
+    {
+        String type = new String();
+        Cursor cur = sql.rawQuery("select type from users where ID = " + id, null);
+        if (cur.getCount() > 0) {
+            while (cur.moveToNext()) {
+               type = cur.getString(0);
+            }
+        }
+        cur.close();
+        return type;
+    }
+
+
+    public void addUser(String name,String password,String Email,String Address,String Phone ,String Type) {
+        sql.execSQL("insert into users(userName,Email,Password,Address,Phone,type) values ('"+name+"' , '"+Email+"' , '"+password+"' , '"+Address+"' , '"+Phone+"' , '"+Type+"')");
         Log.e("user added", "added");
     }
 
@@ -180,7 +194,7 @@ public class Database {
         Cursor cur = sql.rawQuery("select foodname,price from orders where uID = " + id, null);
         if (cur.getCount() > 0) {
             while (cur.moveToNext()) {
-                arr.add("Food Name == > "+cur.getString(0)+" Price == > "+cur.getString(1));
+                arr.add("Food Name : "+cur.getString(0)+"\nPrice : "+cur.getString(1));
             }
         }
         cur.close();

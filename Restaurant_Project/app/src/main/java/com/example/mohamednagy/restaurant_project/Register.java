@@ -1,18 +1,21 @@
 package com.example.mohamednagy.restaurant_project;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Address;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-public class Register extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Register extends AppCompatActivity implements View.OnClickListener {
     EditText userName;
     EditText password;
     EditText Email;
@@ -30,8 +33,11 @@ public class Register extends AppCompatActivity {
     ImageView phoneTick;
     ImageView phoneFalse;
     RadioGroup rg;
+    RadioButton selectedType;
     Database db;
     SQLiteDatabase sql;
+    Button register;
+    public static int valid = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,10 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
+
+        register = (Button) findViewById(R.id.Registerbtn);
+        register.setOnClickListener(this);
+
 
         userName = (EditText) findViewById(R.id.userNameRegister);
         usernameTick = (ImageView) findViewById(R.id.usernameTick);
@@ -50,14 +60,14 @@ public class Register extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if(userName.getText().toString().length()!=0 && db.checkAvilabilty(userName.getText().toString()))
-                    {
+                    if (userName.getText().toString().length() != 0 && db.checkAvilabilty(userName.getText().toString())) {
                         usernameFalse.setVisibility(View.INVISIBLE);
                         usernameTick.setVisibility(View.VISIBLE);
-                    }else
-                    {
+                        valid++;
+                    } else {
                         usernameTick.setVisibility(View.INVISIBLE);
                         usernameFalse.setVisibility(View.VISIBLE);
+                        valid--;
                     }
                 }
             }
@@ -73,14 +83,14 @@ public class Register extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if(password.getText().toString().length()!=0 && password.getText().toString().length() > 6)
-                    {
+                    if (password.getText().toString().length() != 0 && password.getText().toString().length() > 6) {
                         passwordFalse.setVisibility(View.INVISIBLE);
                         passwordTick.setVisibility(View.VISIBLE);
-                    }else if(password.getText().toString().length() < 6)
-                    {
+                        valid++;
+                    } else if (password.getText().toString().length() < 6) {
                         passwordTick.setVisibility(View.INVISIBLE);
                         passwordFalse.setVisibility(View.VISIBLE);
+                        valid--;
                     }
                 }
             }
@@ -96,14 +106,14 @@ public class Register extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if(Email.getText().toString().matches("^[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+$"))
-                    {
+                    if (Email.getText().toString().matches("^[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+$")) {
                         emailFalse.setVisibility(View.INVISIBLE);
                         emailTick.setVisibility(View.VISIBLE);
-                    }else if(Email.getText().toString().length() == 0 || !Email.getText().toString().matches("^[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+$"))
-                    {
+                        valid++;
+                    } else if (Email.getText().toString().length() == 0 || !Email.getText().toString().matches("^[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+$")) {
                         emailTick.setVisibility(View.INVISIBLE);
                         emailFalse.setVisibility(View.VISIBLE);
+                        valid--;
                     }
                 }
             }
@@ -119,14 +129,14 @@ public class Register extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if(address.getText().toString().length() > 3)
-                    {
+                    if (address.getText().toString().length() > 3) {
                         addressFalse.setVisibility(View.INVISIBLE);
                         addressTick.setVisibility(View.VISIBLE);
-                    }else
-                    {
+                        valid++;
+                    } else {
                         addressTick.setVisibility(View.INVISIBLE);
                         addressFalse.setVisibility(View.VISIBLE);
+                        valid--;
                     }
                 }
             }
@@ -142,20 +152,40 @@ public class Register extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if(phone.getText().toString().length() == 11)
-                    {
+                    if (phone.getText().toString().length() == 11) {
                         phoneFalse.setVisibility(View.INVISIBLE);
                         phoneTick.setVisibility(View.VISIBLE);
-                    }else
-                    {
+                        valid++;
+                    } else {
                         phoneTick.setVisibility(View.INVISIBLE);
                         phoneFalse.setVisibility(View.VISIBLE);
+                        valid--;
                     }
                 }
             }
         });
 
+        rg = (RadioGroup) findViewById(R.id.radioGroup);
+        rg.check(R.id.userRadio);
+
 
     }
 
+    @Override
+    public void onClick(View view) {
+        selectedType = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
+        String userType = selectedType.getText().toString();
+        if (phoneTick.isShown() && usernameTick.isShown() && passwordTick.isShown() && emailTick.isShown() && addressTick.isShown()) {
+            if(db.checkAvilabilty(userName.getText().toString())) {
+                db.addUser(userName.getText().toString(),password.getText().toString(),Email.getText().toString(),address.getText().toString(),phone.getText().toString(),userType);
+                Intent intent = new Intent(this,Login.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(this,"User Name Exists :(",Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "There Is an Empty or Wrong Field(s)", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

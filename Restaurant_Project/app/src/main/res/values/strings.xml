@@ -7,8 +7,8 @@
         Vilnius bohema and intellectuals. DayDream has saved its style  and spirit through many years,
         therefore it attracts both old visitors and modern youth.</string>
     <string name="welcome">Welcome to DayDream</string>
-    <string name="adminradio">ADMIN</string>
-    <string name="userradio">USER</string>
+    <string name="adminradio">Admin</string>
+    <string name="userradio">User</string>
     <string name="nameHint">userName</string>
     <string name="passHint">Password</string>
     <string name="EmailHint">Email</string>

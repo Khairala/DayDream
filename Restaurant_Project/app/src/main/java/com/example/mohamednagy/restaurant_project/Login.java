@@ -42,6 +42,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
+       // db.dropUsertable();
+        db.createTables();
         /*db.dropFoodtable();
         db.dropCategorytable();
         db.createTables();
@@ -72,11 +74,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == login) {
+            Log.e("LLLLLLLLLL","Login");
             userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
+            Log.e("LLLLLLLLLL",userData);
             if (userData != null) {
-                Intent intent = new Intent(getBaseContext(), User_Activity.class);
-                intent.putExtra("Id", userData);
-                startActivity(intent);
+                String Type = db.getType(Integer.parseInt(userData));
+                Log.e("LLLLLLLLLL",Type);
+                if( Type.equals("User")) {
+                    Intent intent = new Intent(getBaseContext(), User_Activity.class);
+                    intent.putExtra("Id", userData);
+                    startActivity(intent);
+                }
+                else if(Type.equals("Admin")){
+                    Intent intent = new Intent(getBaseContext(), Admin_Activity.class);
+                    intent.putExtra("Id", userData);
+                    startActivity(intent);
+                }
             }
         }else if(v == register)
         {

@@ -41,14 +41,14 @@ public class Admin_Activity extends AppCompatActivity implements ValueEventListe
         myRef = database.getReference("message");
         myRef.addValueEventListener(this);
 
-        Toolbar userToolbar = (Toolbar) findViewById(R.id.admintoolbar);
-        setSupportActionBar(userToolbar);
+        Toolbar adminToolbar = (Toolbar) findViewById(R.id.admintoolbar);
+        setSupportActionBar(adminToolbar);
 
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflate = getMenuInflater();
-        menuInflate.inflate(R.menu.user_menu, menu);
+        menuInflate.inflate(R.menu.admin_menu, menu);
         return true;
     }
 
