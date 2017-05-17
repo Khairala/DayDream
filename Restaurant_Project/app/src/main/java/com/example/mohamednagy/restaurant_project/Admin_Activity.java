@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.mohamednagy.restaurant_project.Login.userData;
+
 public class Admin_Activity extends AppCompatActivity{
 
     DatabaseReference myRef;
@@ -85,11 +87,17 @@ public class Admin_Activity extends AppCompatActivity{
         }
         else if(item.getTitle().equals("Sign Out"))
         {
+            userData = null;
             finish();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 
 }

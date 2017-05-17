@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             if (userName.getText().length() > 0 && passWord.getText().length() > 0)
             {
                 userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
-            }else if (userName.getText().length() == 0 || passWord.getText().length() == 0)
+            }else if (userName.getText().length() == 0 || passWord.getText().length() == 0 || userData == null)
             {
                 Toast.makeText(this , "FILL DATA \uD83D\uDE1E" , Toast.LENGTH_SHORT).show();
             }
