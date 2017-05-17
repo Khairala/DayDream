@@ -92,11 +92,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
 
     }
-    public void onPause()
-    {
-        super.onPause();
-        finish();
-    }
+
 
 
 

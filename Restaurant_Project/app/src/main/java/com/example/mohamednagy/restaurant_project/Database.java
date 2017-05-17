@@ -161,6 +161,7 @@ public class Database {
         return null;
     }
 
+
     public void dropFoodtable() {
         String dropQuery = "DROP TABLE IF EXISTS food";
         sql.execSQL(dropQuery);
@@ -229,6 +230,26 @@ public class Database {
         sql.execSQL(delFoods);
         sql.execSQL(delCategory);
     }
+    public ArrayList<String> getAllfoodAdmin (){
+        ArrayList<String> foodArr = new ArrayList<>();
+        Cursor curX = sql.rawQuery("select food_name , price from food ", null);
+        if (curX.getCount() > 0) {
+            while (curX.moveToNext()) {
+                foodArr.add("Name : "+curX.getString(0)+" \nPrice : "+curX.getString(1));
+                Log.e("wfwe", "foooood") ;
+            }
+            return foodArr;
+        }
+        return null;
+    }
 
+    public void deleteFood(String foodName)
+    {
+        String[] xx = foodName.split(" ");
+        String delFoods = "DELETE FROM food WHERE food_name = '" + xx[2] + "'";
+        sql.execSQL(delFoods);
+        Log.e("wfwe", "delete foooood") ;
+
+    }
 
 }
