@@ -43,9 +43,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
-        /*db.dropUsertable();
+        //db.dropUsertable();
         db.createTables();
-        db.dropFoodtable();
+        /*db.dropFoodtable();
         db.dropCategorytable();
         db.createTables();
         db.addCategory("Pizza");
@@ -74,7 +74,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if(v == login) {
             Log.e("LLLLLLLLLL","Login");
-            userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
+            if (userName.getText().length() > 0 && passWord.getText().length() > 0)
+            {
+                userData = db.checkLogin(userName.getText().toString(), passWord.getText().toString());
+            }else if (userName.getText().length() == 0 || passWord.getText().length() == 0)
+            {
+                Toast.makeText(this , "FILL DATA \uD83D\uDE1E" , Toast.LENGTH_SHORT).show();
+            }
             if (userData != null) {
                 String Type = db.getType(Integer.parseInt(userData));
                 Log.e("LLLLLLLLLL",Type);

@@ -98,7 +98,7 @@ public class addFood extends Fragment implements AdapterView.OnItemSelectedListe
                 foodprice.getText().length() > 0 && foodPhoto.getText().length() > 0) {
             int id = getResources().getIdentifier(foodPhoto.getText().toString(), "drawable", getActivity().getPackageName());
             db.addFood(foodName.getText().toString(), foodprice.getText().toString(), id, selectedCategory.getText().toString());
-            Toast.makeText(getActivity(), "Food Added \uD83D\uDE0A", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Food Added \uD83D\uDE0A", Toast.LENGTH_SHORT).show();
         } else if (!db.checkAvilabilty(foodName.getText().toString(), "food", "food_name")) {
             Toast.makeText(getActivity(), "Food is Found \uD83D\uDE1E", Toast.LENGTH_SHORT).show();
         } else if (foodName.getText().length() == 0 || foodprice.getText().length() == 0 || foodPhoto.getText().length() == 0) {
