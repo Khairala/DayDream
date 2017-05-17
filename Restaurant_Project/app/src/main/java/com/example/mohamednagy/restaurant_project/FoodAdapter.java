@@ -58,9 +58,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             public void onClick(View view) {
                 Toast.makeText(context, "this position number = " + position, Toast.LENGTH_SHORT).show();
                 db.addOrder(foodItems.get(position).title,foodItems.get(position).price, Integer.parseInt(userData));
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("message");
-                myRef.setValue(position+"");
             }
         });
     }

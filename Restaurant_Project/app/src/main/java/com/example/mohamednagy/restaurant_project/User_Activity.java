@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -17,15 +18,23 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class User_Activity extends AppCompatActivity implements ValueEventListener {
+import java.util.ArrayList;
+
+import static com.example.mohamednagy.restaurant_project.Login.userData;
+
+public class User_Activity extends AppCompatActivity implements ChildEventListener {
 
     DatabaseReference myRef;
+    SQLiteDatabase sql;
+    Database db;
+    DatabaseReference root;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +45,11 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
         userProfile.setArguments(bundle);
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("message");
-        myRef.addValueEventListener(this);
+        sql =this.openOrCreateDatabase("myDB",0,null);
+        db = new Database(sql);
+        root = FirebaseDatabase.getInstance().getReference().child("chat");
 
+        root.addChildEventListener(this);
         Toolbar userToolbar = (Toolbar) findViewById(R.id.usertoolbar);
         setSupportActionBar(userToolbar);
     }
@@ -89,9 +99,7 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
         }
         else if(item.getTitle().equals("Chats"))
         {
-            Rooms room = new Rooms();
-            Bundle bundle = this.getIntent().getExtras();
-            room.setArguments(bundle);
+            chatRoom room = new chatRoom();
             ft.replace(R.id.fragmentContent,room);
             ft.commit();
         }
@@ -119,16 +127,33 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
         notificationManager.notify(0, builder.build());
     }
 
+
     @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-        String value = dataSnapshot.child("food").child("Name").getValue(String.class);
-      //  sendNotification("A new Food Added \uD83D\uDE0A"+value);
+    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        ArrayList<String> user = db.getUser(Integer.parseInt(userData));
+        sendNotification(user.get(0)+" , Chat Is Up to Date \uD83D\uDE0A");
+    }
+
+    @Override
+    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        ArrayList<String> user = db.getUser(Integer.parseInt(userData));
+        sendNotification(user.get(0)+" , Chat Is Up to Date \uD83D\uDE0A");
+
+    }
+
+    @Override
+    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+    }
+
+    @Override
+    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
     }
 
     @Override
     public void onCancelled(DatabaseError databaseError) {
-        // Failed to read value
-        Log.w("Fail", "Failed to read value.", databaseError.toException());
+
     }
 
 }

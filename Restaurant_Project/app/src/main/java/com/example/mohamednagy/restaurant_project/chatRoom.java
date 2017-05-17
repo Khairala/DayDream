@@ -1,6 +1,7 @@
 package com.example.mohamednagy.restaurant_project;
 
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -23,6 +24,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import static com.example.mohamednagy.restaurant_project.Login.userData;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,14 +39,15 @@ public class chatRoom extends Fragment {
         // Required empty public constructor
     }
 
-
+    SQLiteDatabase sql;
+    Database db;
     Button addmsg;
     EditText msg;
     ListView chatList;
     ArrayAdapter<String> ChatAdapter;
     ArrayList<String> ListOfmsg = new ArrayList<>();
     private String userName,roomName;
-    private DatabaseReference root,root1;
+    private DatabaseReference root;
     private String chatUsername,chatMsg;
 
 
@@ -58,14 +62,15 @@ public class chatRoom extends Fragment {
         addmsg = (Button) view.findViewById(R.id.Addchat);
         msg = (EditText) view.findViewById(R.id.msg);
         chatList = (ListView) view.findViewById(R.id.chatList);
+        sql = getActivity().openOrCreateDatabase("myDB",0,null);
+        db = new Database(sql);
 
+        ArrayList<String> user = db.getUser(Integer.parseInt(userData));
 
-        Bundle bundle = getArguments();
-        userName = bundle.getString("UserName");
-        roomName = bundle.getString("RoomName");
+        userName = user.get(0);
+        roomName = "chat";
 
         root = FirebaseDatabase.getInstance().getReference().child(roomName);
-        root1 = FirebaseDatabase.getInstance().getReference().child(userName);
 
 
         addmsg.setOnClickListener(new View.OnClickListener() {
@@ -76,13 +81,12 @@ public class chatRoom extends Fragment {
                 root.updateChildren(specificuserMsg);
 
                 DatabaseReference messageRoot = root.child(key);
-                DatabaseReference messageRoot1 = root1.child(key);
                 Map<String,Object> allMsg = new HashMap<String,Object>();
                 allMsg.put("Name" , userName);
                 allMsg.put("Message",msg.getText().toString());
 
                 messageRoot.updateChildren(allMsg);
-                messageRoot1.updateChildren(allMsg);
+                msg.setText("");
             }
         });
 
@@ -124,13 +128,12 @@ public class chatRoom extends Fragment {
         {
             chatMsg = (String) ((DataSnapshot)i.next()).getValue();
             chatUsername = (String) ((DataSnapshot)i.next()).getValue();
-            ListOfmsg.add(chatUsername +"\uD83D\uDE0A : " + chatMsg + "\n");
+            ListOfmsg.add("\n"+chatUsername +"\uD83D\uDE0A : \n\n" + chatMsg + "\n");
         }
         if(getActivity() != null) {
             ChatAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, ListOfmsg);
             chatList.setAdapter(ChatAdapter);
         }
-        // if go to list and choose chat and write its crash
     }
 
 }

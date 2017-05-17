@@ -27,5 +27,6 @@
     <string name="roombtn">Add Contacts</string>
     <string name="roomname">add Contact</string>
     <string name="delcategory">ENTER NAME TO DELETE</string>
+    <string name="chatLabel">Chat</string>
 
 </resources>

@@ -38,11 +38,8 @@ public class UserProfile extends Fragment {
 
         sql = getActivity().openOrCreateDatabase("myDB" ,0,null);
         final Database db = new Database(sql);
-       // db.dropTables();
-        //db.createTables();
-       // db.addUser();
+
         Bundle extras = getActivity().getIntent().getExtras();
-        //Log.e("GGGGGGGGGGGGGGGGGGGgg",extras.getString("Id"));
         ArrayList<String> arr = db.getUser(Integer.parseInt(extras.getString("Id")));
         name.setText(arr.get(0));
         email.setText(arr.get(1));
