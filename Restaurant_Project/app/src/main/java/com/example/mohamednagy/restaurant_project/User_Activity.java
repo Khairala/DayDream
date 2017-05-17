@@ -60,7 +60,7 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
             Food food = new Food();
             ft.replace(R.id.fragmentContent,food);
             ft.commit();
-        }else if (item.getTitle().equals("UserProfile"))
+        }else if (item.getTitle().equals("Profile"))
         {
             UserProfile prof = new UserProfile();
             Bundle bundle = this.getIntent().getExtras();
@@ -86,6 +86,14 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
             finish();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
+        }
+        else if(item.getTitle().equals("Chats"))
+        {
+            Rooms room = new Rooms();
+            Bundle bundle = this.getIntent().getExtras();
+            room.setArguments(bundle);
+            ft.replace(R.id.fragmentContent,room);
+            ft.commit();
         }
         return super.onOptionsItemSelected(item);
     }

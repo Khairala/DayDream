@@ -17,6 +17,12 @@
         android:title="Orders"
         app:showAsAction="never"
         />
+
+    <item
+        android:id="@+id/chatInlist"
+        android:title="Chats"
+        app:showAsAction="never"
+        />
     <item
         android:id="@+id/AboutInlist"
         android:title="About Us"

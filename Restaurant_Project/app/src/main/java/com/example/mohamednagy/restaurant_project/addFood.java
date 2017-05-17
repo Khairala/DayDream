@@ -2,10 +2,7 @@ package com.example.mohamednagy.restaurant_project;
 
 
 import android.app.Fragment;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -38,6 +35,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
+public class addFood extends Fragment implements AdapterView.OnItemSelectedListener,View.OnClickListener{
 
 
     DatabaseReference myRef;

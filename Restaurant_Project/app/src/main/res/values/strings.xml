@@ -24,5 +24,7 @@
     <string name="addcategory">ADD CATEGORY</string>
     <string name="categoryLabel">Manage Categories</string>
     <string name="foodLabel">Manage Foods</string>
+    <string name="roombtn">Add Contacts</string>
+    <string name="roomname">add Contact</string>
 
 </resources>
