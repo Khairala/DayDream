@@ -66,15 +66,22 @@ public class addFood extends Fragment implements AdapterView.OnItemSelectedListe
 
 
         ArrayList<String> catArr = db.getCategory();
-        Log.e("List ==>", catArr.toString());
-        adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, catArr);
-        categorySpinner.setAdapter(adapter);
-        foodName = (EditText) view.findViewById(R.id.AddFoodName);
-        foodprice = (EditText) view.findViewById(R.id.AddPrice);
-        foodPhoto = (EditText) view.findViewById(R.id.AddPhoto);
-        AddFood = (Button) view.findViewById(R.id.AddFoodbtn);
-        categorySpinner.setOnItemSelectedListener(this);
-        AddFood.setOnClickListener(this);
+        if(catArr != null)
+        {
+            Log.e("List ==>", catArr.toString());
+            adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, catArr);
+            categorySpinner.setAdapter(adapter);
+            foodName = (EditText) view.findViewById(R.id.AddFoodName);
+            foodprice = (EditText) view.findViewById(R.id.AddPrice);
+            foodPhoto = (EditText) view.findViewById(R.id.AddPhoto);
+            AddFood = (Button) view.findViewById(R.id.AddFoodbtn);
+            categorySpinner.setOnItemSelectedListener(this);
+            AddFood.setOnClickListener(this);
+        }else
+        {
+            Toast.makeText(getActivity() , "<< Please add category First >>" , Toast.LENGTH_LONG).show();
+        }
+
         return view;
     }
 

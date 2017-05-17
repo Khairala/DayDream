@@ -41,12 +41,12 @@ public class delete_category extends Fragment {
                     {
                         db.deleteCategory(categoryName.getText().toString());
                         Toast.makeText(getActivity() , "Category Deleted \uD83D\uDE03" , Toast.LENGTH_SHORT).show();
-                    }else if (db.checkAvilabilty(categoryName.getText().toString(), "category", "categoryName"))
+                    }else if (db.checkAvilabilty(categoryName.getText().toString(), "category", "categoryName") && categoryName.getText().length() != 0)
                     {
                         Toast.makeText(getActivity() , "Category NOT FOUND \uD83D\uDE1E" , Toast.LENGTH_SHORT).show();
                     }else if(categoryName.getText().length() == 0)
                     {
-                        Toast.makeText(getActivity() , "ERROR !!!" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity() , "Fill DATA " , Toast.LENGTH_SHORT).show();
                     }
                 }
             });

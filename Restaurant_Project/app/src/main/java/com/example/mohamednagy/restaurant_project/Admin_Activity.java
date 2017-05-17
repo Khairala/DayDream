@@ -66,7 +66,9 @@ public class Admin_Activity extends AppCompatActivity{
         }
         else if (item.getTitle().equals("Delete Food"))
         {
-
+            deleteFood delFood = new deleteFood();
+            ft.replace(R.id.fragmentContentAdmin,delFood);
+            ft.commit();
         }else if (item.getTitle().equals("Add Food"))
         {
             addFood addFood = new addFood();

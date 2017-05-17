@@ -46,7 +46,7 @@ public class add_category extends Fragment {
                     Toast.makeText(getActivity() , "Category is Found \uD83D\uDE1E" , Toast.LENGTH_SHORT).show();
                 }else if(categoryName.getText().length() == 0)
                 {
-                    Toast.makeText(getActivity() , "ERROR !!!" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity() , "Fill DATA " , Toast.LENGTH_SHORT).show();
                 }
             }
         });
