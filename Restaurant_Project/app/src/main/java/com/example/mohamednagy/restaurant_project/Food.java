@@ -61,12 +61,21 @@ public class Food extends Fragment implements AdapterView.OnItemSelectedListener
         db = new Database(sql);
 
         ArrayList<String> catArr = db.getCategory();
+        ArrayList<String> categoryList = new ArrayList<>();
         Log.e("List ==>",catArr.toString());
-        adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,catArr);
+        for(String x : catArr)
+        {
+            int id = db.getCategoryId(x);
+            if(id != 0) {
+                if (!db.checkAvilabilty(Integer.toString(id), "food", "categoryID")) {
+                    categoryList.add(x);
+                }
+            }
+        }
+        adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,categoryList);
         categorySpinner.setAdapter(adapter);
         categorySpinner.setOnItemSelectedListener(this);
         ArrayList<FoodItem> foodList = db.getAllfood("Pizza");
-        //Log.e("DDDDDDDDDDD",foodList.toString());
         FoodAdapter foodAdapter = new FoodAdapter(foodList);
         recyclerView.setAdapter(foodAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -43,7 +43,7 @@ public class add_category extends Fragment {
                     Toast.makeText(getActivity() , "Category ADDED \uD83D\uDE03" , Toast.LENGTH_SHORT).show();
                 }else if (!db.checkAvilabilty(categoryName.getText().toString(), "category", "categoryName"))
                 {
-                    Toast.makeText(getActivity() , "Category is Found \uD83D\uDE42" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity() , "Category is Found \uD83D\uDE1E" , Toast.LENGTH_SHORT).show();
                 }else if(categoryName.getText().length() == 0)
                 {
                     Toast.makeText(getActivity() , "ERROR !!!" , Toast.LENGTH_SHORT).show();

@@ -113,9 +113,7 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        // This method is called once with the initial value and again
-        // whenever data at this location is updated.
-        String value = dataSnapshot.getValue(String.class);
+        String value = dataSnapshot.child("food").child("Name").getValue(String.class);
         sendNotification("A new Food Added \uD83D\uDE0A"+value);
     }
 
@@ -124,6 +122,5 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
         // Failed to read value
         Log.w("Fail", "Failed to read value.", databaseError.toException());
     }
-
 
 }

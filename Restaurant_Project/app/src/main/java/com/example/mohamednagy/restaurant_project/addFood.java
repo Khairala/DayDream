@@ -1,10 +1,16 @@
 package com.example.mohamednagy.restaurant_project;
 
 
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.widget.RecyclerView;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +23,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class addFood extends Fragment implements AdapterView.OnItemSelectedListener,View.OnClickListener {
 
 
+    DatabaseReference myRef;
     SQLiteDatabase sql;
     Database db;
     ArrayAdapter<String> adapter;
@@ -46,18 +61,19 @@ public class addFood extends Fragment implements AdapterView.OnItemSelectedListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_add_food, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_food, container, false);
         if (container != null) {
             container.removeAllViewsInLayout();
         }
 
         categorySpinner = (Spinner) view.findViewById(R.id.categorySpinnerAdd);
-        sql = getActivity().openOrCreateDatabase("myDB",0,null);
+        sql = getActivity().openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
 
+
         ArrayList<String> catArr = db.getCategory();
-        Log.e("List ==>",catArr.toString());
-        adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,catArr);
+        Log.e("List ==>", catArr.toString());
+        adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, catArr);
         categorySpinner.setAdapter(adapter);
         foodName = (EditText) view.findViewById(R.id.AddFoodName);
         foodprice = (EditText) view.findViewById(R.id.AddPrice);
@@ -80,8 +96,18 @@ public class addFood extends Fragment implements AdapterView.OnItemSelectedListe
 
     @Override
     public void onClick(View view) {
-        int id = getResources().getIdentifier(foodPhoto.getText().toString(),"drawable",getActivity().getPackageName());
-        db.addFood(foodName.getText().toString(),foodprice.getText().toString(),id,selectedCategory.getText().toString());
-        Toast.makeText(getActivity(),"Food Added \uD83D\uDE0A",Toast.LENGTH_LONG).show();
+        if (db.checkAvilabilty(foodName.getText().toString(), "food", "food_name") && foodName.getText().length() > 0 &&
+                foodprice.getText().length() > 0 && foodPhoto.getText().length() > 0) {
+            int id = getResources().getIdentifier(foodPhoto.getText().toString(), "drawable", getActivity().getPackageName());
+            db.addFood(foodName.getText().toString(), foodprice.getText().toString(), id, selectedCategory.getText().toString());
+            Toast.makeText(getActivity(), "Food Added \uD83D\uDE0A", Toast.LENGTH_LONG).show();
+        } else if (!db.checkAvilabilty(foodName.getText().toString(), "food", "food_name")) {
+            Toast.makeText(getActivity(), "Food is Found \uD83D\uDE1E", Toast.LENGTH_SHORT).show();
+        } else if (foodName.getText().length() == 0 || foodprice.getText().length() == 0 || foodPhoto.getText().length() == 0) {
+            Toast.makeText(getActivity(), "ERROR !!!", Toast.LENGTH_SHORT).show();
+        }
+
     }
+
+
 }

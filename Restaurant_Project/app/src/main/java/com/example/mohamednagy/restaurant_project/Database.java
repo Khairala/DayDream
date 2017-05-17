@@ -122,6 +122,7 @@ public class Database {
         }
     }
 
+
     public Boolean checkAvilabilty (String name , String tableName , String columnName) {
         Cursor cur = sql.rawQuery("select ID from "+tableName+" where "+columnName+" = '"+name+"'", null);
         if (cur.getCount() > 0) {
@@ -202,6 +203,18 @@ public class Database {
         return arr;
     }
 
+    public int getCategoryId(String categoryName)
+    {
+        int type = 0;
+        Cursor cur = sql.rawQuery("select ID from category where categoryName = '" + categoryName+"'", null);
+        if (cur.getCount() > 0) {
+            while (cur.moveToNext()) {
+                type = cur.getInt(0);
+            }
+        }
+        cur.close();
+        return type;
+    }
 
 
 }
