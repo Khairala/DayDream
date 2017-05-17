@@ -216,5 +216,14 @@ public class Database {
         return type;
     }
 
+    public void deleteCategory(String categoryName)
+    {
+        int categoryID = getCategoryId(categoryName);
+        String delFoods = "DELETE FROM food WHERE categoryID = " + categoryID;
+        String delCategory = "DELETE FROM category WHERE ID = " + categoryID;
+        sql.execSQL(delFoods);
+        sql.execSQL(delCategory);
+    }
+
 
 }

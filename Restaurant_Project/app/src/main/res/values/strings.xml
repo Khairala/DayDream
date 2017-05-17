@@ -22,7 +22,7 @@
     <string name="addprice">Price</string>
     <string name="addphoto">photo</string>
     <string name="addcategory">ADD CATEGORY</string>
-    <string name="categoryLabel">Manage Categories</string>
+    <string name="delcategory">DELETE CATEGORY</string>
+    <string name="categoryLabe">Manage Categories</string>
     <string name="foodLabel">Manage Foods</string>
-
 </resources>

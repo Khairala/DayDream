@@ -39,8 +39,8 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 
+public class addFood extends Fragment implements AdapterView.OnItemSelectedListener,View.OnClickListener{
 
-    DatabaseReference myRef;
     SQLiteDatabase sql;
     Database db;
     ArrayAdapter<String> adapter;
@@ -51,11 +51,9 @@ import java.util.Map;
     Button AddFood;
     TextView selectedCategory;
 
-
     public addFood() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

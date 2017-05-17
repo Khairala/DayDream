@@ -64,7 +64,9 @@ public class Admin_Activity extends AppCompatActivity implements ValueEventListe
 
         }else if (item.getTitle().equals("Delete Category"))
         {
-
+            delete_category delete_category = new delete_category();
+            ft.replace(R.id.fragmentContentAdmin,delete_category);
+            ft.commit();
         }
         else if (item.getTitle().equals("Delete Food"))
         {
