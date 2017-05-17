@@ -94,6 +94,7 @@ public class User_Activity extends AppCompatActivity implements ChildEventListen
         }
         else if(item.getTitle().equals("Sign Out"))
         {
+            userData = null;
             finish();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
@@ -117,7 +118,7 @@ public class User_Activity extends AppCompatActivity implements ChildEventListen
         Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.about)
+                .setSmallIcon(R.drawable.logo2)
                 .setContentTitle("DayDream")
                 .setContentText(Body)
                 .setAutoCancel(true)
@@ -157,5 +158,10 @@ public class User_Activity extends AppCompatActivity implements ChildEventListen
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }
 

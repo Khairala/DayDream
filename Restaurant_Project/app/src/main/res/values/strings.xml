@@ -29,5 +29,6 @@
     <string name="delcategory">ENTER NAME TO DELETE</string>
     <string name="chatLabel">LIVE CHAT</string>
     <string name="delFood">CLICK TO DELETE FOOD</string>
+    <string name="aboutus">ABOUT US</string>
 
 </resources>
