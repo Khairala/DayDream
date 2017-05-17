@@ -38,7 +38,6 @@
             android:id="@+id/foodImage"
             android:layout_width="225dp"
             android:layout_height="139dp"
-            android:src="@drawable/f2"
             tools:layout_constraintBottom_creator="1"
             tools:layout_constraintLeft_creator="1"
             app:layout_constraintLeft_toLeftOf="parent"

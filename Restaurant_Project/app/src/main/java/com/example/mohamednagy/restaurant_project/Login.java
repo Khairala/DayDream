@@ -44,26 +44,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         sql = openOrCreateDatabase("myDB", 0, null);
         db = new Database(sql);
         //db.dropUsertable();
-        db.createTables();
-        /*db.dropFoodtable();
+       db.createTables();
+      /*  db.dropFoodtable();
+        db.dropUserOrders();
         db.dropCategorytable();
         db.createTables();
-        db.addCategory("Pizza");
-        db.addCategory("Sea Food");
-        db.addCategory("Burger");
-        int id1 = getResources().getIdentifier("f1","drawable",getPackageName());
-        db.addFood("Burger1","10$",id1,"Pizza");
-        int id2 = getResources().getIdentifier("f2","drawable",getPackageName());
-        db.addFood("Burger2","10$",id2,"Sea Food");
-        int id3 = getResources().getIdentifier("f3","drawable",getPackageName());
-        db.addFood("Burger3","10$",id3,"Burger");
-        int id4 = getResources().getIdentifier("f1","drawable",getPackageName());
-        db.addFood("Burger4","10$",id4,"Burger");
-        int id5 = getResources().getIdentifier("f2","drawable",getPackageName());
-        db.addFood("Burger5","10$",id5,"Sea Food");
-        int id6 = getResources().getIdentifier("f3","drawable",getPackageName());
-        db.addFood("Burger6","10$",id6,"Pizza");
-        //  db.getFoods();*/
+*/
         login.setOnClickListener(this);
         register.setOnClickListener(this);
     }

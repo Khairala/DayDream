@@ -47,9 +47,10 @@ public class User_Activity extends AppCompatActivity implements ChildEventListen
         // Write a message to the database
         sql =this.openOrCreateDatabase("myDB",0,null);
         db = new Database(sql);
-        root = FirebaseDatabase.getInstance().getReference().child("chat");
 
+        root = FirebaseDatabase.getInstance().getReference().child("chat");
         root.addChildEventListener(this);
+
         Toolbar userToolbar = (Toolbar) findViewById(R.id.usertoolbar);
         setSupportActionBar(userToolbar);
     }
@@ -157,3 +158,4 @@ public class User_Activity extends AppCompatActivity implements ChildEventListen
     }
 
 }
+

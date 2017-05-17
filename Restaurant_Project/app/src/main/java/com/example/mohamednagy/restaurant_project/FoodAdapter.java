@@ -29,7 +29,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     private Context context;
     SQLiteDatabase sql;
     Database db;
-    TextView HolderTxt ;
 
 
     public FoodAdapter(ArrayList<FoodItem> foodItems) {
@@ -50,16 +49,19 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.title.setText(this.foodItems.get(position).title);
-        holder.price.setText(this.foodItems.get(position).price);
-        holder.image.setImageResource(this.foodItems.get(position).imageUrl);
-        holder.request.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "this position number = " + position, Toast.LENGTH_SHORT).show();
-                db.addOrder(foodItems.get(position).title,foodItems.get(position).price, Integer.parseInt(userData));
-            }
-        });
+        if(this.foodItems.get(position).imageUrl != 0) {
+            holder.title.setText(this.foodItems.get(position).title);
+            holder.price.setText(this.foodItems.get(position).price + "$");
+            holder.image.setImageResource(this.foodItems.get(position).imageUrl);
+            Log.e("IIIIIIIIIII",this.foodItems.get(position).imageUrl+"");
+            holder.request.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "this position number = " + position, Toast.LENGTH_SHORT).show();
+                    db.addOrder(foodItems.get(position).title, foodItems.get(position).price, Integer.parseInt(userData));
+                }
+            });
+        }
     }
 
     @Override

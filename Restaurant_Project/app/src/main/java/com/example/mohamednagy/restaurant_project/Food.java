@@ -47,6 +47,7 @@ public class Food extends Fragment implements AdapterView.OnItemSelectedListener
     Database db;
     ArrayAdapter<String> adapter;
     Spinner categorySpinner;
+    ArrayList<String> categoryList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,26 +62,23 @@ public class Food extends Fragment implements AdapterView.OnItemSelectedListener
         db = new Database(sql);
 
         ArrayList<String> catArr = db.getCategory();
-        ArrayList<String> categoryList = new ArrayList<>();
-        Log.e("List ==>",catArr.toString());
-        for(String x : catArr)
-        {
-            int id = db.getCategoryId(x);
-            if(id != 0) {
-                if (!db.checkAvilabilty(Integer.toString(id), "food", "categoryID")) {
-                    categoryList.add(x);
+        categoryList = new ArrayList<>();
+        if(catArr != null) {
+            Log.e("List ==>", catArr.toString());
+            for (String x : catArr) {
+                int id = db.getCategoryId(x);
+                if (id != 0) {
+                    if (!db.checkAvilabilty(Integer.toString(id), "food", "categoryID")) {
+                        categoryList.add(x);
+                    }
                 }
             }
-        }
-        adapter = new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item,categoryList);
-        categorySpinner.setAdapter(adapter);
-        categorySpinner.setOnItemSelectedListener(this);
-        ArrayList<FoodItem> foodList = db.getAllfood("Pizza");
-        FoodAdapter foodAdapter = new FoodAdapter(foodList);
-        recyclerView.setAdapter(foodAdapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
 
+                adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, categoryList);
+                categorySpinner.setAdapter(adapter);
+                categorySpinner.setOnItemSelectedListener(this);
+
+        }
         return view;
     }
 
@@ -88,13 +86,13 @@ public class Food extends Fragment implements AdapterView.OnItemSelectedListener
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         TextView txt = (TextView) view;
-
-        ArrayList<FoodItem> foodList = db.getAllfood(txt.getText().toString());
-        FoodAdapter foodAdapter = new FoodAdapter(foodList);
-        recyclerView.setAdapter(foodAdapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-
+        if(categoryList != null) {
+            ArrayList<FoodItem> foodList = db.getAllfood(txt.getText().toString());
+            FoodAdapter foodAdapter = new FoodAdapter(foodList);
+            recyclerView.setAdapter(foodAdapter);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        }
     }
 
     @Override

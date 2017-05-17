@@ -179,6 +179,11 @@ public class Database {
         Log.e("table", "drop allllllllll");
     }
 
+    public void dropUserOrders() {
+        String dropQuery = "DROP TABLE IF EXISTS orders";
+        sql.execSQL(dropQuery);
+        Log.e("table", "drop allllllllll");
+    }
     public void addOrder(String foodName, String price,int userId) {
         try {
             sql.execSQL("insert into orders(foodname,price,uID) values ('" + foodName + "' , '" + price + "' , "+userId+" )");
@@ -196,7 +201,7 @@ public class Database {
         Cursor cur = sql.rawQuery("select foodname,price from orders where uID = " + id, null);
         if (cur.getCount() > 0) {
             while (cur.moveToNext()) {
-                arr.add("Food Name : "+cur.getString(0)+"\nPrice : "+cur.getString(1));
+                arr.add("Food Name : "+cur.getString(0)+"       Price : "+cur.getString(1)+"$"+"  \uD83D\uDE0A \uD83D\uDE0A");
             }
         }
         cur.close();
