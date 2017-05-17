@@ -64,7 +64,9 @@ public class Admin_Activity extends AppCompatActivity implements ValueEventListe
 
         }else if (item.getTitle().equals("Delete Category"))
         {
-
+            delete_category delete_category = new delete_category();
+            ft.replace(R.id.fragmentContentAdmin,delete_category);
+            ft.commit();
         }
         else if (item.getTitle().equals("Delete Food"))
         {
@@ -109,7 +111,7 @@ public class Admin_Activity extends AppCompatActivity implements ValueEventListe
                 .setSound(notificationSound)
                 .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
     }
 

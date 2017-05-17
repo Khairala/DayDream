@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,7 @@ public class Rooms extends Fragment {
         addroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("kkkkkkkkkkkk",root.toString());
                 Map<String,Object> map = new HashMap<String,Object>();
                 map.put(addcontact.getText().toString(),"");
                 root.updateChildren(map);

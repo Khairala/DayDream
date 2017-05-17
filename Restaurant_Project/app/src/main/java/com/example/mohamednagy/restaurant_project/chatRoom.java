@@ -126,8 +126,10 @@ public class chatRoom extends Fragment {
             chatUsername = (String) ((DataSnapshot)i.next()).getValue();
             ListOfmsg.add(chatUsername +"\uD83D\uDE0A : " + chatMsg + "\n");
         }
-        ChatAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,ListOfmsg);
-        chatList.setAdapter(ChatAdapter);
+        if(getActivity() != null) {
+            ChatAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, ListOfmsg);
+            chatList.setAdapter(ChatAdapter);
+        }
         // if go to list and choose chat and write its crash
     }
 

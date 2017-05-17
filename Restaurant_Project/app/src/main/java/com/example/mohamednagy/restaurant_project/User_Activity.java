@@ -115,14 +115,14 @@ public class User_Activity extends AppCompatActivity implements ValueEventListen
                 .setSound(notificationSound)
                 .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
     }
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         String value = dataSnapshot.child("food").child("Name").getValue(String.class);
-        sendNotification("A new Food Added \uD83D\uDE0A"+value);
+      //  sendNotification("A new Food Added \uD83D\uDE0A"+value);
     }
 
     @Override
