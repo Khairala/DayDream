@@ -132,13 +132,13 @@ public class User_Activity extends AppCompatActivity implements ChildEventListen
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        ArrayList<String> user = db.getUser(Integer.parseInt(userData));
+        ArrayList<String> user = db.getUser(userData);
         sendNotification(user.get(0)+" , Chat Is Up to Date \uD83D\uDE0A");
     }
 
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        ArrayList<String> user = db.getUser(Integer.parseInt(userData));
+        ArrayList<String> user = db.getUser(userData);
         sendNotification(user.get(0)+" , Chat Is Up to Date \uD83D\uDE0A");
 
     }

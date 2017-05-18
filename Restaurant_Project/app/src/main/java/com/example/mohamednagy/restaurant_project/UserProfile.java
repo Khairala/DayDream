@@ -40,7 +40,7 @@ public class UserProfile extends Fragment {
         final Database db = new Database(sql);
 
         Bundle extras = getActivity().getIntent().getExtras();
-        ArrayList<String> arr = db.getUser(Integer.parseInt(extras.getString("Id")));
+        ArrayList<String> arr = db.getUser(extras.getString("Id"));
         name.setText(arr.get(0));
         email.setText(arr.get(1));
         password.setText(arr.get(2));

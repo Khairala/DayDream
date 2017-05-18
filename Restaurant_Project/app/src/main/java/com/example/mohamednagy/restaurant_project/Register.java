@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static com.example.mohamednagy.restaurant_project.Login.userData;
+
 public class Register extends AppCompatActivity implements View.OnClickListener {
     EditText userName;
     EditText password;
@@ -60,7 +62,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if (userName.getText().toString().length() != 0 && db.checkAvilabilty(userName.getText().toString(),"users","userName")) {
+                    if (userName.getText().toString().length() != 0 && db.checkAvilabilty(userName.getText().toString(),"users","userName") && userName.getText().toString().length() >= 4) {
                         usernameFalse.setVisibility(View.INVISIBLE);
                         usernameTick.setVisibility(View.VISIBLE);
                         valid++;
@@ -178,7 +180,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         if (phoneTick.isShown() && usernameTick.isShown() && passwordTick.isShown() && emailTick.isShown() && addressTick.isShown()) {
             if(db.checkAvilabilty(userName.getText().toString(),"users","userName")) {
                 db.addUser(userName.getText().toString(),password.getText().toString(),Email.getText().toString(),address.getText().toString(),phone.getText().toString(),userType);
-                String userData = db.checkLogin(userName.getText().toString(),password.getText().toString());
+                userData = db.checkLogin(userName.getText().toString(),password.getText().toString());
                 if (userType.equals("Admin"))
                 {
                     Intent intent = new Intent(this,Admin_Activity.class);

@@ -65,7 +65,7 @@ public class chatRoom extends Fragment {
         sql = getActivity().openOrCreateDatabase("myDB",0,null);
         db = new Database(sql);
 
-        ArrayList<String> user = db.getUser(Integer.parseInt(userData));
+        ArrayList<String> user = db.getUser(userData);
 
         userName = user.get(0);
         roomName = "chat";

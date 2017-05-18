@@ -49,7 +49,7 @@ public class Database {
         Log.e("user added", "added");
     }
 
-    public ArrayList<String> getUser(int id) {
+    public ArrayList<String> getUser(String id) {
         ArrayList<String> arr = new ArrayList<String>();
         Cursor cur = sql.rawQuery("select userName,Email,Password,Address,Phone from users where ID = " + id, null);
         if (cur.getCount() > 0) {
@@ -185,7 +185,7 @@ public class Database {
         sql.execSQL(dropQuery);
         Log.e("table", "drop allllllllll");
     }
-    public void addOrder(String foodName, String price,int userId) {
+    public void addOrder(String foodName, String price,String userId) {
         try {
             sql.execSQL("insert into orders(foodname,price,uID) values ('" + foodName + "' , '" + price + "' , "+userId+" )");
             Log.e("order added", "added");
@@ -196,17 +196,18 @@ public class Database {
 
     }
 
-    public ArrayList<String> getUserOrder(int id) {
-        Log.e("ID ISSSSSSSS", " "+id);
+    public ArrayList<String> getUserOrder(String id) {
         ArrayList<String> arr = new ArrayList<String>();
         Cursor cur = sql.rawQuery("select foodname,price from orders where uID = " + id, null);
         if (cur.getCount() > 0) {
             while (cur.moveToNext()) {
                 arr.add("Food Name : "+cur.getString(0)+"       Price : "+cur.getString(1)+"$"+"  \uD83D\uDE0A \uD83D\uDE0A");
             }
+            return arr;
+
         }
         cur.close();
-        return arr;
+        return null;
     }
 
     public int getCategoryId(String categoryName)

@@ -57,8 +57,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             holder.request.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "this position number = " + position, Toast.LENGTH_SHORT).show();
-                    db.addOrder(foodItems.get(position).title, foodItems.get(position).price, Integer.parseInt(userData));
+                    Toast.makeText(context, "FOOD IS ORDERED ", Toast.LENGTH_SHORT).show();
+                    db.addOrder(foodItems.get(position).title, foodItems.get(position).price, userData);
                 }
             });
         }

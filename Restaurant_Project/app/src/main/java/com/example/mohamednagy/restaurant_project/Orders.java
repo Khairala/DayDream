@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import static com.example.mohamednagy.restaurant_project.Login.userData;
 
@@ -37,10 +40,17 @@ public class Orders extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_orders, container, false);
         sql = getActivity().openOrCreateDatabase("myDB",0,null);
         db = new Database(sql);
+        ArrayList<String> ordersArr ;
+        if((ordersArr =db.getUserOrder(userData)) !=null)
+        {
+            ListView orderList = (ListView) view.findViewById(R.id.orderList);
+            ArrayAdapter<String> listOforder = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,ordersArr);
+            orderList.setAdapter(listOforder);
+        }else
+        {
+            Toast.makeText(getActivity() , "THERE IS NO ORDERS !" , Toast.LENGTH_LONG).show();
+        }
 
-        ListView orderList = (ListView) view.findViewById(R.id.orderList);
-        ArrayAdapter<String> listOforder = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,db.getUserOrder(Integer.parseInt(userData)));
-        orderList.setAdapter(listOforder);
         return view;
     }
 
